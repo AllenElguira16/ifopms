@@ -22,7 +22,7 @@ export default class JobModal extends React.Component<any, any>{
         alreadyInContacts: res.data
       })
     });
-  } 
+  }
   addToContacts(id: number, e: any){
     Axios.post('/api/addToContacts', {id: id}).then((res: AxiosResponse) => {
       if(res.data.success){
@@ -34,7 +34,7 @@ export default class JobModal extends React.Component<any, any>{
   }
 
   render() {
-    let {alreadyInContacts} = this.state;
+    let { alreadyInContacts } = this.state;
     let {job, modal} = this.props;
     // console.log(job);
     return(
