@@ -4,6 +4,6 @@ return [
 	"hostname"  => "localhost",
 	"username"  => "root",
 	"password"  => "",
-	"dbname" => "behance"
+	"dbname" => "ifopms"
 	// "dbname"    => "ifopms"
 ];

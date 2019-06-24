@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import {
   Col
 } from "reactstrap";
 import Axios from 'axios';
-import * as io from "socket.io-client";
+import io from "socket.io-client";
 class LikeNav extends React.Component<any, any>{
   constructor(props: any){
     super(props);
@@ -42,7 +42,7 @@ class LikeNav extends React.Component<any, any>{
   }
 
   componentWillUpdate(){
-    let socket = io('https://www.ifopms.dev:8000');
+    let socket: any = io('localhost:8000');
     socket.on('updateLike', () => {
       this.fetchLikes();
     });

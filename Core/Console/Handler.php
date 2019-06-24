@@ -40,10 +40,10 @@ class Handler{
     }
 
     function getFile($source, $to, $classname){
-    $file = file_get_contents($source);
-    $file = preg_replace("/\(classname\)/", "$classname", $file);
-    $newfile = fopen($to, "w", "w");
-    fwrite($newfile, $file);
+        $file = file_get_contents($source);
+        $file = preg_replace("/\(classname\)/", "$classname", $file);
+        $newfile = fopen($to, "w", "w");
+        fwrite($newfile, $file);
     }
 
     function run(){

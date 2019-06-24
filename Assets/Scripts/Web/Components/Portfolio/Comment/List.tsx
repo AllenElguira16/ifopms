@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as io from "socket.io-client";
+import React from "react";
+import io from "socket.io-client";
 import Axios from "axios";
 
 
@@ -16,7 +16,7 @@ class CommentList extends React.Component<any, any>{
   }
 
   componentWillUpdate(){
-    let socket = io('https://www.ifopms.dev:8000');
+    let socket: any = io('localhost:8000');
     socket.on('newComment', () => this.fetchComments());
   }
   // fetch comments

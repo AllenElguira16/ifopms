@@ -3,13 +3,13 @@ var http = require("https");
 var fs = require("fs");
 
 var app = express();
-var privateKey = fs.readFileSync('../../apache/cert/www.ifopms.dev/server.key', 'utf8');
-var certificate = fs.readFileSync('../../apache/cert/www.ifopms.dev/server.crt', 'utf8');
-var credentials = {
-    key: privateKey,
-    cert: certificate
-};
-var httpServer = http.Server(credentials, app);
+// var privateKey = fs.readFileSync('../../apache/cert/www.ifopms.dev/server.key', 'utf8');
+// var certificate = fs.readFileSync('../../apache/cert/www.ifopms.dev/server.crt', 'utf8');
+// var credentials = {
+//     key: privateKey,
+//     cert: certificate
+// };
+// var httpServer = http.Server(credentials, app);
 
 var io = require("socket.io")(httpServer);
 var port = 8000;
@@ -37,6 +37,6 @@ io.on('connection', function (socket) {
     });
 });
 
-httpServer.listen(port, () => {
+app.listen(port, () => {
     console.log("listening on port: " + port);
 });
