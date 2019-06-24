@@ -1,110 +1,89 @@
-import path from "path";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import webpack from "webpack";
-// import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin";
-// import ErrorOverlayPlugin from "error-overlay-webpack-plugin";
-import WebpackNotifier from "webpack-notifier";
-// import { CheckerPlugin } from "awesome-typescript-loader";
-var isProd = process.env.NODE_ENV.trim() === 'production';
+/**
+ * Webpack configuration in Typescript Language
+ * 
+ * This ensures you to config your webpack settings without any unknown errors 
+ */
+import path from 'path';
+import webpack from 'webpack';
+import nodeExternals from 'webpack-node-externals';
 
-export default {
-  performance: {
-    hints: false
-  },
-  watch: isProd ? false : true,
+/**
+ * Node Env constants
+ * 
+ * 
+ */
+
+
+/**
+ * Webpack configuration
+ */
+const serverConfig: webpack.Configuration = {
+  mode: 'development',
+  watch: true,
   entry: {
-    main: ["./Assets/Scripts/Web/index.tsx"],
-    dashboard: ["./Assets/Scripts/Dashboard/index.tsx"],
-    vendor: ["react", "react-dom", "react-router-dom"]
+    app: './public/index.ts'
   },
   output: {
-    path: path.resolve(__dirname, "Public/Scripts"),
-    filename: "[name].bundle.js",
-    chunkFilename: '[name].bundle.js'   
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].bundle.js'
   },
-  resolve: {
-    extensions: ['*', '.ts', '.tsx', '.jsx', '.js', '.json', '.vue']
+  target: 'node',
+  node: {
+    __dirname: false,
+    __filename: false,
   },
-  // optimization: {
-  //   minimizer: [
-  //     new OptimizeCssAssetsPlugin(),
-  //     new UglifyJsPlugin({
-  //       cache: isProd ? true : false,
-  //       parallel: true,
-  //       uglifyOptions: {
-  //         compress: {
-  //           warnings: false, // Suppress uglification warnings
-  //           pure_getters: true,
-  //           unsafe: true,
-  //           unsafe_comps: true,
-  //         },
-  //         ecma: 6,
-  //         mangle: true
-  //       },
-  //       sourceMap: true
-  //     })
-  //   ],
-  // },
+  externals: [nodeExternals()],
   module: {
     rules: [
       {
-        test: /\.(tsx|ts)/,
-        exclude: /node_modules/,
-        loader: 'awesome-typescript-loader'
+        test: /.ts$/,
+        use: 'ts-loader'
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['.ts'],
+    alias: {
+      "@App": path.resolve(__dirname, "app"),
+      "@Controllers": path.resolve(__dirname, "app/http/controllers"),
+      "@Middlewares": path.resolve(__dirname, "app/http/middlewares"),
+      "@Models": path.resolve(__dirname, "app/http/models"),
+      "@Routes": path.resolve(__dirname, "app/routes"),
+      "@Interfaces": path.resolve(__dirname, "interfaces")
+    }
+  }
+};
+
+const clientConfig: webpack.Configuration = {
+  mode: 'development',
+  watch: true,
+  entry: './resources/scripts/index.tsx',
+  output: {
+    path: path.resolve(__dirname, 'public/scripts'),
+    filename: '[name].bundle.js'
+  },
+  target: 'web',
+  module: {
+    rules: [
+      {
+        test: /.tsx$/,
+        use: 'awesome-typescript-loader'
       },
       {
-        test: /\.(scss|sass)$/,
+        test: /.(sass|scss|css)$/,
         use: [
-          // isProd ? MiniCssExtractPlugin.loader : 'style-loader',
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader'
-        ],
-      },
-      {
-        test: /\.css$/,
-        use: [
-          // isProd ? MiniCssExtractPlugin.loader : 'style-loader',
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-        ],
+          "style-loader", "css-loader", "sass-loader"
+        ]
       },
       {
         test: /\.(woff(2)?|ttf|eot|svg|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'url-loader',
       },
-      {
-        test: /\.(jpe?g|png|gif)/,
-        loader: 'url-loader',
-      },
-      {
-        test: /\.(zip|rar)/,
-        loader: 'url-loader'
-      }
     ]
   },
-  plugins: [
-    // new CheckerPlugin(),
-    // new ErrorOverlayPlugin(),
-    new WebpackNotifier({
-      title: "Webpack",
-      alwaysNotify: true,
-    }),
-    new MiniCssExtractPlugin({
-      filename: "../Styles/[name].bundle.css",
-      
-    }),
-    // new webpack.optimize.AggressiveMergingPlugin({
-    //   minSize: 10000,
-    //   maxSize: 30000
-    // }),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery'
-    }),
-  ],
-  // devtool: 'source-map',
-  // node: {
-  //   fs: "empty"
-  // }
-}
+  resolve: {
+    extensions: ['.tsx', '.ts', '.jsx', '.js', '.scss', '.sass', '.css']
+  }
+};
+
+export default [serverConfig, clientConfig];

@@ -12,15 +12,22 @@
     "webapp",
     "webapp-mvc",
     "light-weight",
-    "FullStack PHP MVC and ReactJS"
+    "FullStack Express MVC and ReactJS"
   ],
   "author": "Allen Elguira",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",
     "bootstrap-material-design": "^4.1.1",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.4",
+    "express-fileupload": "^1.1.5",
+    "express-session": "^1.16.2",
+    "express-validator": "^6.0.1",
     "file-loader": "^2.0.0",
     "material-design-icons": "^3.0.1",
+    "method-override": "^3.0.0",
     "mini-css-extract-plugin": "^0.4.4",
     "popper.js": "^1.15.0",
     "react": "^16.8.6",
@@ -35,6 +42,11 @@
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
+    "@types/express": "^4.17.0",
+    "@types/express-fileupload": "^1.1.0",
+    "@types/express-session": "^1.15.13",
+    "@types/express-validator": "^3.0.0",
+    "@types/mini-css-extract-plugin": "^0.2.1",
     "@types/node": "^11.13.0",
     "@types/react": "^16.8.12",
     "@types/react-dom": "^16.8.3",
@@ -68,6 +80,7 @@
     "uws": "^99.0.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
+    "webpack-node-externals": "^1.7.2",
     "webpack-notifier": "^1.7.0"
   }
 }
