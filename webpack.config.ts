@@ -42,7 +42,7 @@ const serverConfig: webpack.Configuration = {
     ]
   },
   resolve: {
-    extensions: ['.ts'],
+    extensions: ['.ts', '.js'],
     alias: {
       "@App": path.resolve(__dirname, "app"),
       "@Controllers": path.resolve(__dirname, "app/http/controllers"),
@@ -57,7 +57,7 @@ const serverConfig: webpack.Configuration = {
 const clientConfig: webpack.Configuration = {
   mode: 'development',
   watch: true,
-  entry: './resources/scripts/index.tsx',
+  entry: './client/index.tsx',
   output: {
     path: path.resolve(__dirname, 'public/scripts'),
     filename: '[name].bundle.js'
