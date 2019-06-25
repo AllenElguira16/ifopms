@@ -1,10 +1,18 @@
 import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Web from './Components/Web';
+import Dashboard from './Components/Dashboard';
 
 class App extends React.Component<any, any>{
   render() {
     return (
-      <div>Hello</div>
-    )
+      <BrowserRouter>
+        <Switch>
+          {/* <Route path="/admin" component={ Dashboard }/> */}
+          <Route path="/" component={ Web }/>
+        </Switch>
+      </BrowserRouter>
+    );
   }
 }
 

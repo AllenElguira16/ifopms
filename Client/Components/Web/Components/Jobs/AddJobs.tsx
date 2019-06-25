@@ -16,7 +16,7 @@ export default class AddJobs extends React.Component<any, any>{
     }
   }
 
-  toggleModal = (e: any) => {
+  toggleModal = (): void => {
     this.setState({modal: !this.state.modal});
   }
   
@@ -50,9 +50,9 @@ export default class AddJobs extends React.Component<any, any>{
     return (
       <>
         <Button className="btn-raised" color="dark" onClick={this.toggleModal.bind(this)}>Post Jobs</Button>
-        <Modal isOpen={modal} toggle={this.toggleModal.bind(this)}>
-          <Form onSubmit={this.handleSubmit.bind(this)}>
-            <ModalHeader toggle={this.toggleModal.bind(this)}>Post jobs</ModalHeader>
+        <Modal isOpen={modal} toggle={this.toggleModal}>
+          <Form onSubmit={this.handleSubmit}>
+            <ModalHeader toggle={this.toggleModal}>Post jobs</ModalHeader>
             <ModalBody>
               {/* <FormGroup>
                 <Label>Company Name</Label>

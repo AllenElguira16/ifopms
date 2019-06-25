@@ -18,7 +18,7 @@ class Comment extends React.Component<any, any>{
       [e.currentTarget.name]: e.currentTarget.value
     }) 
   }
-  submit(e: React.FormEvent<HTMLInputElement>){
+  submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     Axios.post('/api/newComments', {
       comment: this.state.comment,
@@ -35,7 +35,7 @@ class Comment extends React.Component<any, any>{
     return (
       <div>
         <h5>Comments</h5>
-        <Form onSubmit={this.submit.bind(this)}>
+        <Form onSubmit={this.submit}>
           <FormGroup>
             <Input type="text" name="comment" autoComplete="off" value={this.state.comment} onChange={this.handleInput.bind(this)} placeholder="Add a comment"/>
             <CommentList portfolioId={this.props.portfolioId}></CommentList>

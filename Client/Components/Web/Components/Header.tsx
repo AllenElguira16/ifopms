@@ -92,7 +92,7 @@ class Header extends React.Component<any, any>{
   }
 
   render (){
-    let {users, projects} = this.state.results;
+    let { users, projects } = this.state.results;
     return (
       <header style={{height: "auto"}}>
         <Navbar id="header" expand="sm" color="white">

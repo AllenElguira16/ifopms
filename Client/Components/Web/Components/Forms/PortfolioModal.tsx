@@ -32,14 +32,14 @@ class PostModal extends React.Component<any, any>{
   }
   onFileChange = (e: React.FormEvent<HTMLInputElement>) => {
     // console.log(e.currentTarget.files);
-    let {files} = e.currentTarget;
+    let { files }: any = e.currentTarget;
     if(e.currentTarget.name == 'preview'){
       this.setState({
         preview: files[0],
-        image: URL.createObjectURL(e.currentTarget.files[0])
+        image: URL.createObjectURL(files[0])
       })
     } else {
-      if (e.currentTarget.files.length) {
+      if (files.length) {
         for(let i = 0; i < files.length; i++){
           let reader = new FileReader;
           reader.readAsDataURL(files[i]);
@@ -86,7 +86,9 @@ class PostModal extends React.Component<any, any>{
     });
   }
   toggleNotif(e: any){
-    document.querySelector('#zip-file-notice').classList.toggle('d-none');
+    const elem: any = document.getElementById('zip-file-notice');
+    // console.log();
+    elem.classList.toggle('d-none');
   }
   componentDidMount(){
     Axios.get('/api/getCategories').then((res: AxiosResponse) => {

@@ -38,15 +38,16 @@ class PortfolioUpload extends React.Component<any, any>{
     });
   }
   onFileChange = (e: React.FormEvent<HTMLInputElement>) => {
-    if (e.currentTarget.files.length) {
+    const { files, name }: any = e.currentTarget;
+    if (files.length) {
       this.setState({
         // image: URL.createObjectURL(e.target.files[0]),
-        [e.currentTarget.name]: e.currentTarget.files[0]
+        [name]: files[0]
       })
     }
-    if (e.currentTarget.name == 'preview') {
+    if (name == 'preview') {
       this.setState({
-        image: URL.createObjectURL(e.currentTarget.files[0])
+        image: URL.createObjectURL(files[0])
       })
     }
   }
@@ -77,8 +78,9 @@ class PortfolioUpload extends React.Component<any, any>{
       desc: ''
     });
   }
-  toggleNotif(e: any) {
-    document.querySelector('#zip-file-notice').classList.toggle('d-none');
+  toggleNotif() {
+    const elem: any = document.querySelector('#zip-file-notice');
+    elem.classList.toggle('d-none');
   }
   render() {
     return (

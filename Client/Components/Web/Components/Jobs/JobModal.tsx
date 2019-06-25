@@ -7,7 +7,7 @@ export default class JobModal extends React.Component<any, any>{
   state: any = {
     alreadyInContacts: false
   }
-  toggleModal(e: any){
+  toggleModal = () => {
     this.props.toggleModal();
   }
   openMessage(){
@@ -38,15 +38,15 @@ export default class JobModal extends React.Component<any, any>{
     let {job, modal} = this.props;
     // console.log(job);
     return(
-      <Modal isOpen={modal} toggle={this.toggleModal.bind(this)} size="xl">
-        <ModalHeader toggle={this.toggleModal.bind(this)} className="mx-auto text-center">
+      <Modal isOpen={modal} toggle={this.toggleModal} size="xl">
+        <ModalHeader toggle={this.toggleModal} className="mx-auto text-center">
           <div className="display-4">{job.jobTitle}</div>
           <div className="text-muted small">{job.firstname} {job.lastname} | {job.location}</div>
           <Button className={`btn-raised rounded-pill`} disabled={alreadyInContacts ? true : false} onClick={this.addToContacts.bind(this, job.userId)}> Add to Contacts </Button>
         </ModalHeader>
         <ModalBody>
           <div className="d-flex">
-            <Col sm={8}>{job.jobDescription}</Col>    
+            <Col sm={8}>{job.jobDescription}</Col>
             <Col sm={4}>
               <Card>
                 <CardBody>

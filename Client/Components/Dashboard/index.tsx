@@ -1,12 +1,12 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 
 // import "../../Styles/app.sass";
 import Home from "./Home";
 import Login from "./Login";
 
-class App extends React.Component<any, State>{
+class Dashboard extends React.Component<any, State>{
   state: State = {
     isLoggedIn: false
   }
@@ -41,6 +41,4 @@ interface State {
   isLoggedIn: boolean
 }
 
-ReactDOM.render(
-  <App />, document.querySelector("#app")
-);
+export default Dashboard;

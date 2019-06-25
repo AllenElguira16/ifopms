@@ -40,6 +40,7 @@ import path from 'path';
 // // import {  } from '@tsed/common';
 import { Server as OvernightServer } from '@overnightjs/core';
 import Home from './Http/Controllers/Home';
+import Users from './Http/Controllers/Users';
 
 class Server extends OvernightServer{
   constructor() {
@@ -59,7 +60,15 @@ class Server extends OvernightServer{
     this.app.use(express.json());
     this.app.use(express.static(path.join(__dirname, '../', '/public')));
     
-    super.addControllers([new Home()]);
+
+    /**
+     * Changing default Settings
+     */
+    this.app.set('views', path.join(__dirname, '../', 'client/views'));
+    this.app.set('view engine', "ejs");
+    this.app.set('json spaces', 2);
+
+    super.addControllers([Users, Home]);
   }
 
   public start(port: number) {
@@ -67,4 +76,4 @@ class Server extends OvernightServer{
   }
 }
 
-export default Server;
+export default new Server();
