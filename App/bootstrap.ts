@@ -2,45 +2,12 @@ import express from 'express';
 import expressValidator from 'express-validator';
 import session from 'express-session';
 import fileUpload from 'express-fileupload';
-import web from './Route/web';
-import api from './Route/api';
 import path from 'path';
-// // App instance
-// const app: express.Application = express();
-
-// /**
-//  * Injecting Dependencies
-//  * 
-//  * Adding packages as Dependencies for application services
-//  */
-// app.use(session({
-//   secret: 'secret',
-//   resave: true,
-//   saveUninitialized: true,
-//   cookie: {
-//     secure: false
-//   }
-// }));
-// app.use(fileUpload());
-// app.use(express.urlencoded({ extended: false }));
-// app.use(express.json());
-// app.use(express.static(path.join(__dirname, '../', '/public')));
-// // app.use(expressValidator());
-// // app.use('/api', api);
-// // app.use('/', web);
-
-// /**
-//  * Changing default Settings
-//  */
-// app.set('views', path.join(__dirname, '../', 'client/views'));
-// app.set('view engine', "ejs");
-// app.set('json spaces', 2);
-
-// export default app;
-// // import {  } from '@tsed/common';
 import { Server as OvernightServer } from '@overnightjs/core';
 import Home from './Http/Controllers/Home';
 import Users from './Http/Controllers/Users';
+import mongoose from 'mongoose';
+import Auth from './Http/Controllers/Auth';
 
 class Server extends OvernightServer{
   constructor() {
@@ -56,6 +23,7 @@ class Server extends OvernightServer{
       }
     }));
     this.app.use(fileUpload());
+    this.app.use(expressValidator());
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use(express.json());
     this.app.use(express.static(path.join(__dirname, '../', '/public')));
@@ -68,10 +36,13 @@ class Server extends OvernightServer{
     this.app.set('view engine', "ejs");
     this.app.set('json spaces', 2);
 
-    super.addControllers([Users, Home]);
+    super.addControllers([Users, Auth, Home]);
   }
 
   public start(port: number) {
+    mongoose.connect('mongodb+srv://user:user@clustersofstars-renyu.mongodb.net/ifopms?retryWrites=true&w=majority', {
+      useNewUrlParser: true
+    }).then(() => console.log('MongoDB Connected Successfully')).catch((err) => console.error(err));
     this.app.listen(port, () => console.log('Server started on port ' + port));
   }
 }

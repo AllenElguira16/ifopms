@@ -1,12 +1,12 @@
 import React from "react"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
-import Axios from "axios";
+import Axios, { AxiosResponse } from "axios";
 
 // import Home from "./Components/Home"
 // import Footer from "./Components/Footer"
 import Header from "./Components/Header"
 // import PageNotFound from "./Components/PageNotFound";
-// import Register from "./Components/Forms/Register";
+import Register from "./Components/Forms/Register";
 // import Login from "./Components/Forms/Login";
 // import Profile from "./Components/Profile";
 // import Portfolio from "./Components/Portfolio";
@@ -27,15 +27,11 @@ class Web extends React.Component<any, any>{
   }
   
   fetchUser(){
-    Axios.get("/api/getUser").then((res: any) => {
+    Axios.get("/api/auth/user").then(({data}: AxiosResponse) => {
       this.setState({
-        user: res.data,
+        user: data,
         isLoading: false
       });
-      // console.log(location.pathname);
-      // if(res.data.length === 0 && location.pathname !== '/home'){
-      //   location.href = '/home';
-      // }
     });
   }
 
@@ -45,16 +41,14 @@ class Web extends React.Component<any, any>{
 
   render (){
     let { user } = this.state;
-    // console.log(user.id === undefined);
     return (
       <Router>
         <>
-          {/* <div>Check for changes in client side</div> */}
           <Header user={user} history={history}/>
-          {/* <Switch> */}
+          <Switch>
             {/* <Route exact path="/" component={Home} /> */}
             {/* <Route exact path="/login" component={Login}></Route> */}
-            {/* <Route exact path="/register" component={Register}/> */}
+            <Route exact path="/register" component={Register}/>
             {/* <Route exact path="/portfolios" render={(props) => 
               <PortfoliosHome {...props} user={user}/>
             }/> */}
@@ -69,7 +63,7 @@ class Web extends React.Component<any, any>{
             {/* <Route path="/search/:search" component={SearchPage}/> */}
             {/* <Route path="/jobs" render={(props) => <Jobs {...props} user={this.state.user}/>}/> */}
             {/* <Route exact path="*" component={PageNotFound}/> */}
-          {/* </Switch> */}
+          </Switch>
           {/* <Footer /> */}
           {/* <Messages /> */}
           {/* Hello */}
