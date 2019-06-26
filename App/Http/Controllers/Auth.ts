@@ -1,5 +1,8 @@
-import { Controller, Get, Post } from "@overnightjs/core";
+import { Controller, Get, Post, Middleware } from "@overnightjs/core";
 import { Request, Response } from 'express';
+import Validator from "../Middlewares/Validator";
+import User from "../Models/User";
+import bcrypt from 'bcrypt';
 
 @Controller('api/auth')
 class Auth{
@@ -19,11 +22,23 @@ class Auth{
   }
 
   @Post('register')
-  userRegistration(request: Request, response: Response) {
+  @Middleware([Validator.registerValidator])
+  async userRegistration(request: Request, response: Response) {
     const { firstname, lastname, email, username, password, repassword, type } = request.body;
     const { file }: any = request.files;
-    // response.json({body: request.body, files: request.files});
+    // Check username
+    const userObj = await User.findOne({ username });
+    if(userObj) return response.json({ err: 'username already exists' });
+    if(password !== repassword) return response.json({ err: 'password doesn\'t match' });
+    bcrypt.hash(password, 10, (err, hash) => {
+    //   const user = new User({ firstname, lastname, email, username, password: hash, type });
+    //   user.save((err) => {
+    //     if(err) return response.json({err});
+    //     return response.json({success: true});
+    //   });
+    });
   }
+
 }
 
 export default new Auth;

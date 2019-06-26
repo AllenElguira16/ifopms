@@ -4,9 +4,9 @@ import session from 'express-session';
 import fileUpload from 'express-fileupload';
 import path from 'path';
 import { Server as OvernightServer } from '@overnightjs/core';
+import mongoose from 'mongoose';
 import Home from './Http/Controllers/Home';
 import Users from './Http/Controllers/Users';
-import mongoose from 'mongoose';
 import Auth from './Http/Controllers/Auth';
 
 class Server extends OvernightServer{
