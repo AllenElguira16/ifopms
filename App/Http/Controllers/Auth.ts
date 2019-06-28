@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Middleware } from "@overnightjs/core";
 import { Request, Response } from 'express';
+import path, { resolve } from 'path';
 import Validator from "../Middlewares/Validator";
 import User from "../Models/User";
 import bcrypt from 'bcrypt';
@@ -31,14 +32,28 @@ class Auth{
     if(userObj) return response.json({ err: 'username already exists' });
     if(password !== repassword) return response.json({ err: 'password doesn\'t match' });
     bcrypt.hash(password, 10, (err, hash) => {
-    //   const user = new User({ firstname, lastname, email, username, password: hash, type });
-    //   user.save((err) => {
-    //     if(err) return response.json({err});
-    //     return response.json({success: true});
-    //   });
+      // response.json(hash);
+      const user = new User({ firstname, lastname, email, username, password: hash, type, profilePic: file.name });
+      user.save((err, newUser) => {
+        if(err) return response.json({err});
+        this.upload(file, newUser._id);
+        request.session.user = newUser;
+        return response.json({success: true});
+      });
+      return response.json({success: true});
     });
   }
 
+  upload(img: any, id: String) {
+    const imgName: String = img.name;
+    img.mv(path.join(__dirname, `../public/uploads/${id}/${imgName}`), (err) => {
+      if(err) {
+        return new Promise((resolve) => {
+          resolve(err);
+        });
+      }
+    });
+  }
 }
 
 export default new Auth;
