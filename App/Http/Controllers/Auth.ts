@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Middleware } from "@overnightjs/core";
 import { Request, Response } from 'express';
-import path, { resolve } from 'path';
+import path from 'path';
 import Validator from "../Middlewares/Validator";
 import User from "../Models/User";
 import bcrypt from 'bcrypt';
@@ -12,14 +12,15 @@ class Auth{
   getAuthUser(request: Request, response: Response){
     const {user}: any = request.session;
     if(!user) {
-      return response.json({ err: 'User is not yet authenticated' });
+      return response.json({ error: 'User is not yet authenticated' });
     }
     return response.json({ user });
   }
 
   @Post('login')
-  userLogin(request: Request, response: Response) {
-    response.json(request.body);
+  async userLogin(request: Request, response: Response) {
+    // response.json(request.params.);
+
   }
 
   @Post('register')
@@ -29,29 +30,18 @@ class Auth{
     const { file }: any = request.files;
     // Check username
     const userObj = await User.findOne({ username });
-    if(userObj) return response.json({ err: 'username already exists' });
-    if(password !== repassword) return response.json({ err: 'password doesn\'t match' });
+    if(userObj) return response.json({ error: 'username already exists' });
+    if(password !== repassword) return response.json({ error: 'password doesn\'t match' });
     bcrypt.hash(password, 10, (err, hash) => {
-      // response.json(hash);
       const user = new User({ firstname, lastname, email, username, password: hash, type, profilePic: file.name });
       user.save((err, newUser) => {
-        if(err) return response.json({err});
-        this.upload(file, newUser._id);
+        if(err) return response.json({err: 'Error creating user'});
         request.session.user = newUser;
-        return response.json({success: true});
-      });
-      return response.json({success: true});
-    });
-  }
-
-  upload(img: any, id: String) {
-    const imgName: String = img.name;
-    img.mv(path.join(__dirname, `../public/uploads/${id}/${imgName}`), (err) => {
-      if(err) {
-        return new Promise((resolve) => {
-          resolve(err);
+        file.mv(path.join(__dirname, `../public/uploads/${newUser._id}/${file.name}`), (errMsg: object) => {
+          if(errMsg) return response.json({error: 'Error uploading file'});
+          return response.json({success: true});
         });
-      }
+      });
     });
   }
 }

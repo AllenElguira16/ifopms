@@ -22,7 +22,9 @@ class Server extends OvernightServer{
         secure: false
       }
     }));
-    this.app.use(fileUpload());
+    this.app.use(fileUpload({
+      createParentPath: true
+    }));
     this.app.use(expressValidator());
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use(express.json());
