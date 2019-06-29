@@ -6,9 +6,10 @@ import Message from '../Message';
 import Notifications from '../Notifications';
 
 class UserNavItem extends React.Component<any, any>{
-  async render() {
-    let { user } = await this.props;
-    console.log(user.username);
+  render() {
+    let { user } = this.props;
+    console.log(user);
+
     return (
       <>
         {user.error ? 
@@ -22,25 +23,26 @@ class UserNavItem extends React.Component<any, any>{
           </Nav>
             :
           <Nav navbar>
-            {/* <Link to="/portfolios" className="p-2">
+            <Link to="/portfolios" className="p-2">
               <i className="material-icons  mt-1">home</i>
             </Link>
-            <UncontrolledDropdown nav inNavbar>
+            {/* <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav>
                 <i className="material-icons  mt-1">message</i>
               </DropdownToggle>
               <DropdownMenu right style={{ zIndex: 10}}>
                 <Message user={user}/>
               </DropdownMenu>
-            </UncontrolledDropdown>
+            </UncontrolledDropdown> */ }
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav>
                 <i className="material-icons  mt-1">notifications</i>
               </DropdownToggle>
               <DropdownMenu right>
-                <Notifications user={user}></Notifications>
+                {/* <Notifications user={user}></Notifications> */}
+                <DropdownItem>HAHA</DropdownItem>
               </DropdownMenu>
-            </UncontrolledDropdown> */}
+            </UncontrolledDropdown>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav>
                 <img src={`/uploads/profiles/${user._id}/${user.file}`} className="rounded-circle img-fluid" style={{height: 30, width: 30}}/>

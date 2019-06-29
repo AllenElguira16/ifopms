@@ -28,7 +28,6 @@ class Web extends React.Component<any, any>{
   
   fetchUser(){
     Axios.get("/api/auth/user").then(({data}: AxiosResponse) => {
-      console.log(data);
       this.setState({
         user: data,
         isLoading: false

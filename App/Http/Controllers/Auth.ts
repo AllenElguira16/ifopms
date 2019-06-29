@@ -14,7 +14,7 @@ class Auth{
     if(!user) {
       return response.json({ error: 'User is not yet authenticated' });
     }
-    return response.json({ user });
+    return response.json({ ...user });
   }
 
   @Post('login')
