@@ -19,14 +19,19 @@ class Auth{
 
   @Post('login')
   async userLogin(request: Request, response: Response) {
-    // response.json(request.params.);
-
+    const { username, password }: TUser = request.body;
+    let user: any = await User.findOne({ username });
+    if(!user) return response.json({ error: "Username doesn't exists!" });
+    let match = await bcrypt.compare(password, user.password);
+    if(!match) return response.json({ error: "Password doesn't match" });
+    request.session.user = user;
+    return response.json({success: true});
   }
 
   @Post('register')
   @Middleware([Validator.registerValidator])
   async userRegistration(request: Request, response: Response) {
-    const { firstname, lastname, email, username, password, repassword, type } = request.body;
+    const { firstname, lastname, email, username, password, repassword, type }: TUser = request.body;
     const { file }: any = request.files;
     // Check username
     const userObj = await User.findOne({ username });

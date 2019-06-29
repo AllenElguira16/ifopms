@@ -1,11 +1,16 @@
-declare namespace Express{
-    export interface Request{
-        // params: TParams,
-        body: User
-    }
-}
+// declare namespace Express{
+//     export interface Request{
+//         // params: TParams,
+//         body: User
+//     }
+// }
 
-interface User{
-    username: string,
-    password: string
+interface TUser{
+    firstname?: string, 
+    lastname?: string, 
+    username?: string,
+    email?: string,
+    password?: string,
+    repassword?: string, 
+    type?: string
 }

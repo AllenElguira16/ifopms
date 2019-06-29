@@ -6,11 +6,12 @@ import Message from '../Message';
 import Notifications from '../Notifications';
 
 class UserNavItem extends React.Component<any, any>{
-  render() {
-    let { user } = this.props;
+  async render() {
+    let { user } = await this.props;
+    console.log(user.username);
     return (
       <>
-        {user.err ? 
+        {user.error ? 
           <Nav navbar>
             <NavItem>
               <Login />
@@ -39,17 +40,17 @@ class UserNavItem extends React.Component<any, any>{
               <DropdownMenu right>
                 <Notifications user={user}></Notifications>
               </DropdownMenu>
-            </UncontrolledDropdown>
+            </UncontrolledDropdown> */}
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav>
-                <img src={`/uploads/profiles/${user.id}/${user.file}`} className="rounded-circle img-fluid" style={{height: 30, width: 30}}/>
+                <img src={`/uploads/profiles/${user._id}/${user.file}`} className="rounded-circle img-fluid" style={{height: 30, width: 30}}/>
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem tag={Link} to={`/user/${user.username}`}>Profile</DropdownItem>
                 <DropdownItem tag={Link} to="/edit-profile">Edit Profile</DropdownItem>
                 <DropdownItem tag="a" href="/api/logout">Logout</DropdownItem>
               </DropdownMenu>
-            </UncontrolledDropdown> */}
+            </UncontrolledDropdown>
           </Nav>}
       </>
     );
