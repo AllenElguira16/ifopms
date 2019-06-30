@@ -41,19 +41,21 @@ class Users extends React.Component<any, any>{
                 {/* <th>Online Status</th> */}
               </tr>
             </thead>
-            {/* <tbody>
-              {users.length && users.map((user: any, i: number) => 
-                <tr key={i}>
-                  <td>{user.firstname}</td>
-                  <td>{user.lastname}</td>
-                  <td>{user.username}</td>
-                  <td>{user.email}</td>
-                  <td>
-                    <Button onClick={this.remove.bind(this, i)}>Block</Button>
-                  </td>
-                </tr>
-              )}
-            </tbody> */}
+            {users.length && 
+              <tbody>
+                { users.map((user: any, i: number) => 
+                  <tr key={i}>
+                    <td>{user.firstname}</td>
+                    <td>{user.lastname}</td>
+                    <td>{user.username}</td>
+                    <td>{user.email}</td>
+                    <td>
+                      <Button onClick={this.remove.bind(this, i)}>Block</Button>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            }
           </table>
         </div>
       </div>
