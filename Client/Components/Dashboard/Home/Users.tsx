@@ -4,7 +4,7 @@ import Button from 'reactstrap/lib/Button';
 
 class Users extends React.Component<any, any>{
   state: any = {
-    users: [{}]
+    users: []
   }
   componentDidMount(){
     this.getUsers();    
@@ -24,9 +24,8 @@ class Users extends React.Component<any, any>{
   }
 
   render(){
-    let {users} = this.state;
-    // console.log(users.splice(1, 1));
-    // delete this.state.users[1];
+    let { users } = this.state;
+    console.log(users);
     return (
       <div className="card">
         <header className="card-header">User lists</header>
@@ -43,7 +42,7 @@ class Users extends React.Component<any, any>{
               </tr>
             </thead>
             <tbody>
-              {users.map((user: any, i: number) => 
+              {users.length && users.map((user: any, i: number) => 
                 <tr key={i}>
                   <td>{user.firstname}</td>
                   <td>{user.lastname}</td>

@@ -2,7 +2,7 @@ import React from "react"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import Axios, { AxiosResponse } from "axios";
 
-// import Home from "./Components/Home"
+import Home from "./Components/Home"
 // import Footer from "./Components/Footer"
 import Header from "./Components/Header"
 // import PageNotFound from "./Components/PageNotFound";
@@ -46,7 +46,7 @@ class Web extends React.Component<any, any>{
         <>
           <Header user={user} history={history}/>
           <Switch>
-            {/* <Route exact path="/" component={Home} /> */}
+            <Route exact path="/" component={Home} />
             {/* <Route exact path="/login" component={Login}></Route> */}
             <Route exact path="/register" component={Register}/>
             {/* <Route exact path="/portfolios" render={(props) => 

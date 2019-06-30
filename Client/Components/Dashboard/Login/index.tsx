@@ -1,5 +1,6 @@
-import * as React from 'react'
+import React from 'react'
 import { Card, Container, CardBody, Button, Form, FormGroup, Input, Col } from 'reactstrap';
+import Axios, { AxiosResponse } from 'axios';
 
 class Login extends React.Component<any, any>{
   state: any = {
@@ -33,6 +34,14 @@ class Login extends React.Component<any, any>{
       </Container>
     )
   }
+
+  async componentDidMount() {
+    let { data }: AxiosResponse = await Axios.get("/api/auth/user");
+    if(data.type == 'admin') {
+      this.props.setAsLoggedIn();
+    }
+  }
+
   /**
    * handle input
    */
@@ -42,13 +51,13 @@ class Login extends React.Component<any, any>{
     })
   }
   
-  private submit = (e: React.FormEvent<HTMLFormElement>) => {
+  private submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let {username, password} = this.state;
-    if(username === 'admin' && password === 'admin'){
-      console.log(this.props);
+    let { username, password } = this.state;
+    let { data }: AxiosResponse = await Axios.post("/api/auth/login", { username, password });
+    if(data.success) {
       this.props.setAsLoggedIn();
-    }    
+    }
   }
 
 }

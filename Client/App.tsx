@@ -8,7 +8,7 @@ class App extends React.Component<any, any>{
     return (
       <BrowserRouter>
         <Switch>
-          {/* <Route path="/admin" component={ Dashboard }/> */}
+          <Route path="/dashboard" component={ Dashboard }/>
           <Route path="/" component={ Web }/>
         </Switch>
       </BrowserRouter>

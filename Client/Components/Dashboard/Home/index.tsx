@@ -26,6 +26,9 @@ class Home extends React.Component<any, any>{
           <NavItem>
             <NavLink tag={Link} to="/dashboard/reports">Reports</NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink tag={Link} to="/dashboard/categories">Reports</NavLink>
+          </NavItem>
         </Nav>
         <Card>
         <Route exact path="/dashboard" component={Users} />

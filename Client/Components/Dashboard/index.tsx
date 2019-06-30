@@ -2,14 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 
-// import "../../Styles/app.sass";
 import Home from "./Home";
 import Login from "./Login";
 
 class Dashboard extends React.Component<any, State>{
-  state: State = {
-    isLoggedIn: false
+  constructor(props: any){
+    super(props);
+    this.state = {
+      isLoggedIn: false
+    }
   }
+  
   render() {
     let { isLoggedIn } = this.state
     return (
@@ -30,6 +33,7 @@ class Dashboard extends React.Component<any, State>{
       </Router>
     )
   }
+  
   private setAsLoggedIn = () => {
     this.setState({
       isLoggedIn: true
