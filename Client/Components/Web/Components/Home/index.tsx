@@ -35,14 +35,14 @@ class Home extends React.Component<any, any>{
   }
 
   componentDidMount(){
-    // Axios.get('/api/getCategories').then((res: AxiosResponse) => {
-    //   this.setState({
-    //     categories: res.data
-    //   })
-    // });
+    Axios.get('/api/categories').then((res: AxiosResponse) => {
+      this.setState({
+        categories: res.data
+      })
+    });
   }
 
-  handleInputChange(e: any){
+  handleInputChange = (e: any) => {
     this.setState({
       [e.currentTarget.name]: e.currentTarget.value
     })
@@ -60,7 +60,7 @@ class Home extends React.Component<any, any>{
                   <Input type="select" className="bg-white" name="categoryInput" value={categoryInput} onChange={this.handleInputChange}>
                     <option value="" defaultValue="" hidden disabled>Choose</option>
                     {categories.map((category: any, i: number) => 
-                      <option value={category.id} key={i}>{category.name}</option>
+                      <option value={category._id} key={i}>{category.name}</option>
                     )}
                   </Input>
                 </FormGroup>

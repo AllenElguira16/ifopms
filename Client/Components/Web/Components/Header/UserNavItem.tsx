@@ -8,8 +8,6 @@ import Notifications from '../Notifications';
 class UserNavItem extends React.Component<any, any>{
   render() {
     let { user } = this.props;
-    console.log(user);
-
     return (
       <>
         {user.error ? 
@@ -45,7 +43,7 @@ class UserNavItem extends React.Component<any, any>{
             </UncontrolledDropdown>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav>
-                <img src={`/uploads/profiles/${user._id}/${user.file}`} className="rounded-circle img-fluid" style={{height: 30, width: 30}}/>
+                <img src={`/uploads/profiles/${user._id}/${user.profilePic}`} className="rounded-circle img-fluid" style={{height: 30, width: 30}}/>
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem tag={Link} to={`/user/${user.username}`}>Profile</DropdownItem>

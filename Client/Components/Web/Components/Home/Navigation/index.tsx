@@ -6,26 +6,34 @@ import PortfolioModal from '../../Forms/PortfolioModal';
 import Axios, { AxiosResponse } from 'axios';
 
 class Navigation extends React.Component<any, any>{
-  state = {
-    categories: [{}],
-    modal: false
+  constructor(props: any) {
+    super(props);
+    
+    this.state = {
+      categories: [],
+      modal: false
+    }
   }
+
   loadPortfolio(type: any){
     let socket = io('https://www.ifopms.dev:8000');
     socket.emit('loadPortfolio', type);
   }
+  
   componentDidMount(){
-    Axios.get('/api/getCategories').then((res: AxiosResponse) => {
-      this.setState({
-        categories: res.data
-      })
-    });
+    // Axios.get('/api/getCategories').then((res: AxiosResponse) => {
+    //   this.setState({
+    //     categories: res.data
+    //   })
+    // });
   }
+
   toggleModal = () =>{
     this.setState({
       modal: !this.state.modal
     });
   }
+  
   render(){
     let {user} = this.props;
     return (
@@ -34,24 +42,23 @@ class Navigation extends React.Component<any, any>{
           {/* <NavItem className="text-light">Featured</NavItem> */}
           
           {user.type === "freelancer" &&
-            <Button className="btn-raised border rounded" color="none" onClick={this.toggleModal.bind(this)}>Post Project</Button>
+            <>
+              <Button className="btn-raised border rounded" color="none" onClick={this.toggleModal.bind(this)}>Post Project</Button>
+              <PortfolioModal modal={this.state.modal} toggleModal={this.toggleModal}/>
+            </>
           }
-          <PortfolioModal modal={this.state.modal} toggleModal={this.toggleModal}/>
         </Nav>
         <Nav navbar>
-          <UncontrolledDropdown nav inNavbar className="px-2">
+          {/* <UncontrolledDropdown nav inNavbar className="px-2">
             <DropdownToggle nav className="btn btn-raised border rounded">Category</DropdownToggle>
             <DropdownMenu right>
-            {/* {this.state.category.map((category: any, i: any) => 
-              <DropdownItem key={i} >{category}</DropdownItem>                
-            )} */}
             {this.state.categories.map((category: any, i: number) => 
               <DropdownItem key={i} onClick={() => 
                 location.href = `/portfolios/${category.id}`
               }>{category.name}</DropdownItem>
             )}
             </DropdownMenu>
-          </UncontrolledDropdown>
+          </UncontrolledDropdown> */}
           <UncontrolledDropdown nav inNavbar className="px-2">
             <DropdownToggle nav className="btn btn-raised border rounded">Sort By</DropdownToggle>
             <DropdownMenu right>

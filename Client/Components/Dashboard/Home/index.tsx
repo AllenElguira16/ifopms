@@ -5,6 +5,7 @@ import Users from './Users';
 import Projects from './Projects';
 import Jobs from './Jobs';
 import Reports from './Reports';
+import Categories from './Categories';
 
 class Home extends React.Component<any, any>{
   render () {
@@ -27,14 +28,15 @@ class Home extends React.Component<any, any>{
             <NavLink tag={Link} to="/dashboard/reports">Reports</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink tag={Link} to="/dashboard/categories">Reports</NavLink>
+            <NavLink tag={Link} to="/dashboard/categories">Categories</NavLink>
           </NavItem>
         </Nav>
         <Card>
-        <Route exact path="/dashboard" component={Users} />
-        <Route exact path="/dashboard/projects" component={Projects} />
-        <Route exact path="/dashboard/jobs" component={Jobs} />
-        <Route exact path="/dashboard/reports" component={Reports} />
+          <Route exact path="/dashboard" component={Users} />
+          <Route exact path="/dashboard/projects" component={Projects} />
+          <Route exact path="/dashboard/jobs" component={Jobs} />
+          <Route exact path="/dashboard/reports" component={Reports} />
+          <Route exact path="/dashboard/categories" component={Categories} />
           {/* <Route path="/dashboard/" component={(props: any) => 
             <Login {...props} setAsLoggedIn={this.setAsLoggedIn}/>
           }/> */}

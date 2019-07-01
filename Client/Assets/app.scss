@@ -4,9 +4,10 @@
  */
 
 
- $theme-colors: (
-     "primary": #0ddb46
- );
+$theme-colors: (
+    "primary": #0ddb46
+);
+
 @import '~bootstrap-material-design/scss/bootstrap-material-design';
 @import '~material-design-icons/iconfont/material-icons.css';
 // @import '~bootstrap/scss/bootstrap';
@@ -16,6 +17,9 @@
     src: url("fonts/Montserrat-Regular.ttf");
 }
 
+html {
+    scroll-behavior: smooth;
+}
 
 :disabled {
     cursor: not-allowed;

@@ -15,7 +15,7 @@ import Register from "./Components/Forms/Register";
 // import EditProfile from "./Components/Profile/EditProfile";
 // import SearchPage from "./Components/SearchPage";
 // import Jobs from "./Components/Jobs";
-// import PortfoliosHome from "./Components/Home/PortfoliosHome";
+import PortfoliosHome from "./Components/Home/PortfoliosHome";
 
 class Web extends React.Component<any, any>{
   constructor(props: any){
@@ -49,9 +49,9 @@ class Web extends React.Component<any, any>{
             <Route exact path="/" component={Home} />
             {/* <Route exact path="/login" component={Login}></Route> */}
             <Route exact path="/register" component={Register}/>
-            {/* <Route exact path="/portfolios" render={(props) => 
+            <Route exact path="/portfolios" render={(props) => 
               <PortfoliosHome {...props} user={user}/>
-            }/> */}
+            }/>
             {/* <Route exact path="/portfolios/:categoryId" component={PortfoliosHome}/> */}
             {/* <Route exact path="/user/:username" render={(props) => 
               <Profile {...props} user={user}/>

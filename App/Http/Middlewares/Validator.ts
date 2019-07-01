@@ -18,6 +18,11 @@ class Validator{
     }
     return next();
   }
+
+  isAuthUser(request: Request, response: Response, next: NextFunction) {
+    if(!request.session.user) return response.json({error: 'User is not authenticated'});
+    return next();
+  }
 }
 
 export default new Validator;

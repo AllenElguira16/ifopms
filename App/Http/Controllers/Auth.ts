@@ -44,7 +44,7 @@ class Auth{
       user.save((err, newUser) => {
         if(err) return response.json({err: 'Error creating user'});
         request.session.user = newUser;
-        file.mv(path.join(__dirname, `../public/uploads/${newUser._id}/${file.name}`), (errMsg: object) => {
+        file.mv(path.join(__dirname, `../public/uploads/profiles/${newUser._id}/${file.name}`), (errMsg: object) => {
           if(errMsg) return response.json({error: 'Error uploading file'});
           return response.json({success: true});
         });

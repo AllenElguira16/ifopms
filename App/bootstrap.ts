@@ -8,6 +8,8 @@ import mongoose from 'mongoose';
 import Home from './Http/Controllers/Home';
 import Users from './Http/Controllers/Users';
 import Auth from './Http/Controllers/Auth';
+import Categories from './Http/Controllers/Categories';
+import Portfolios from './Http/Controllers/Portfolios';
 
 class Server extends OvernightServer{
   constructor() {
@@ -38,7 +40,7 @@ class Server extends OvernightServer{
     this.app.set('view engine', "ejs");
     this.app.set('json spaces', 2);
 
-    super.addControllers([Users, Auth, Home]);
+    super.addControllers([Users, Auth, Portfolios, Categories, Home]);
   }
 
   public start(port: number) {
