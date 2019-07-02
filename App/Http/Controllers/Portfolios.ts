@@ -23,8 +23,10 @@ class Portfolios{
   // @Middleware(Validator.isAuthUser)
   async newportfolio(request: Request, response: Response) {
     let { title, categoryId, desc }: any = request.body;
-    // let { file }: any = request.files;
-    console.log(request.body);
+    let { file }: any = request.files;
+    let userId: string = request.session.user._id;
+    // let fileName: string = 
+    // console.log(request.body);
     // let portfolioObj = new Portfolio({ title, category, desc });
     // portfolioObj.save((error: any, portfolio: any) => {
     //   if(error) return response.json({ error });
