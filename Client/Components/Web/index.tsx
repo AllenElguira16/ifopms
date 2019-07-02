@@ -52,6 +52,9 @@ class Web extends React.Component<any, any>{
             <Route exact path="/portfolios" render={(props) => 
               <PortfoliosHome {...props} user={user}/>
             }/>
+            <Route exact path="/portfolios/:categoryId" render={(props) => 
+              <PortfoliosHome {...props} user={user}/>
+            }/>
             {/* <Route exact path="/portfolios/:categoryId" component={PortfoliosHome}/> */}
             {/* <Route exact path="/user/:username" render={(props) => 
               <Profile {...props} user={user}/>

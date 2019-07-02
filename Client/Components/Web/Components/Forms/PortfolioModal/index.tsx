@@ -21,8 +21,12 @@ class PostModal extends React.Component<any, any>{
       },
       category: '',
       categories: [{}]
-    }
+    };
+
+    this.file = React.createRef();
   }
+
+  private file: any;
 
   handleInput = (e: any) => {
     this.setState({
@@ -59,7 +63,7 @@ class PostModal extends React.Component<any, any>{
     e.preventDefault();
     let formData = new FormData();
     Object.keys(this.state.file).map((i: any, file: any) => {
-      formData.append('file[]', this.state.file[i]);
+      formData.append('file', this.state.file[i]);
     });
     formData.append('categoryId', this.state.category);
     formData.append('title', this.state.title);
@@ -69,7 +73,7 @@ class PostModal extends React.Component<any, any>{
       this.clearInput();
     }
     this.setState({
-      alert: data
+      alert: {...this.state.alert, ...data}
     })
   }
 
@@ -91,15 +95,14 @@ class PostModal extends React.Component<any, any>{
 
   render(){
     // console.log(this.state.file);
-    // console.log(this.state.image);
     let { image, categories, alert, title, desc, category } = this.state;
     return (
       <Modal isOpen={this.props.modal} toggle={this.props.toggleModal} size="lg">
         <Form onSubmit={this.submit.bind(this)}>
           <ModalHeader toggle={this.props.toggleModal}>Add new Project</ModalHeader>
           <ModalBody>
-            {/* {(alert.error) && <Alert color="danger">{alert.error}</Alert>}
-            {(alert.success) && <Alert color="success">{alert.success}</Alert>} */}
+            {(alert.error) && <Alert color="danger">{alert.error}</Alert>}
+            {(alert.success) && <Alert color="success">{alert.success}</Alert>}
             <FormGroup>
               <Label for="title">Title</Label>
               <Input type="text" id="title" onChange={this.handleInput.bind(this)} name="title" value={title}/>
@@ -112,7 +115,7 @@ class PostModal extends React.Component<any, any>{
               <Label for="file">
                 <span>File</span>
               </Label>
-              <Input type="file" id="file" onChange={this.onFileChange} name="file" multiple accept="image/*" placeholder="Submit a Portfolio file in ZIP or RAR format"/>
+              <Input type="file" id="file" onChange={this.onFileChange} ref={this.file} name="file" multiple accept="image/*" placeholder="Submit a Portfolio file in ZIP or RAR format"/>
             </FormGroup>
             <FormGroup>
               {/* <Input type="select" name="category" onChange={this.handleInput.bind(this)} value={this.state.category}>

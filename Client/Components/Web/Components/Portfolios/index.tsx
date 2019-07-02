@@ -22,13 +22,13 @@ class Portfolios extends React.Component<any, any>{
   }
 
   fetchPortfolio(sort: any): void{
-    let {categoryId} = this.props.match.params;
-    Axios.post('/api/portfolio', {sort: sort, categoryId}).then((res: any) => {
-      // console.log(res.data);
-      this.setState({
-        portfolios: res.data
-      });
-    });
+    let { categoryId } = this.props.match.params;
+    console.log(this.props.match.params);
+    // Axios.post('/api/portfolio', {sort: sort, categoryId}).then((res: any) => {
+    //   this.setState({
+    //     portfolios: res.data
+    //   });
+    // });
   }
 
   componentDidMount(){
@@ -36,10 +36,10 @@ class Portfolios extends React.Component<any, any>{
   }
 
   componentDidUpdate(){
-    let socket = io('https://www.ifopms.dev:8000');
-    socket.on('loadPortfolio', (type: any) => {
-      this.fetchPortfolio(type);
-    });
+    // let socket = io('https://www.ifopms.dev:8000');
+    // socket.on('loadPortfolio', (type: any) => {
+    //   this.fetchPortfolio(type);
+    // });
   }
 
   toggleModal(e: any){
@@ -61,11 +61,11 @@ class Portfolios extends React.Component<any, any>{
     return (
       <>
         <Row className="justify-content-between mt-4"> 
-          {portfolios.map((portfolio: any) => 
+          {/* {portfolios.map((portfolio: any) => 
             <PortfolioCard key={portfolio.id} portfolio={portfolio} toggleModal={this.toggleModal.bind(this)} onClick={this.setCurrentId.bind(this)}/>
-          )}
+          )} */}
         </Row>
-        <Portfolio toggleModal={this.toggleModal.bind(this)} modal={modal} currentId={currentId}/>
+        {/* <Portfolio toggleModal={this.toggleModal.bind(this)} modal={modal} currentId={currentId}/> */}
       </>
     );
   }

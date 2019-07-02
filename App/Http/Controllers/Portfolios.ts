@@ -20,25 +20,21 @@ class Portfolios{
   }
 
   @Post('add')
-  // @Middleware(Validator.isAuthUser)
+  @Middleware(Validator.isAuthUser)
   async newportfolio(request: Request, response: Response) {
     let { title, categoryId, desc }: any = request.body;
     let { file }: any = request.files;
-    let userId: string = request.session.user._id;
-    // let fileName: string = 
-    // console.log(request.body);
-    // let portfolioObj = new Portfolio({ title, category, desc });
-    // portfolioObj.save((error: any, portfolio: any) => {
-    //   if(error) return response.json({ error });
-      // file.forEach((img: any) => {
-      //   let pathString: string =  path.join(__dirname, `../public/uploads/portfolios/${portfolio._id}`);
-      //   img.mv(pathString, (error: object) => {
-      //     if(error) return response.json({error});
-      //     // return response.json({success: true});
-      //   });
-      // });
-      // file.mv()
-    // });
+    let portfolioObj = new Portfolio({ userId: request.session.user._id, categoryId, title, description: desc, previewFile: file[0].name });
+    portfolioObj.save((error: any, portfolio: any) => {
+      if(error) return response.json({ error });
+      file.forEach((img: any) => {
+        let pathString: string =  path.join(__dirname, `../public/uploads/portfolios/${portfolio._id}/${img.name}`);
+        img.mv(pathString, (error: object) => {
+          if(error) return response.json({error});
+        });
+      });
+      return response.json({ success: 'Portfolio successfully created' });
+    });
   }
 
   @Put(':id')
@@ -47,7 +43,7 @@ class Portfolios{
     let { id } = request.params;
     Portfolio.findByIdAndUpdate(id, portfolioData, (error: any, categories: any) => {
       if(error) return response.json({error});
-      return response.json({success: true});
+      return response.json({ success: 'Updated successfully' });
     });
   }
 
@@ -56,7 +52,7 @@ class Portfolios{
     let { id } = request.params;
     Portfolio.findByIdAndRemove(id, (error: any) => {
       if(error) return response.json({error: error});
-      return response.json({success: true});
+      return response.json({ success: 'Deleted successfully' });
     });
   }
 }

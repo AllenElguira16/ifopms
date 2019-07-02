@@ -45,7 +45,7 @@ class PortfoliosHome extends React.Component<any, any>{
         </Jumbotron>
         <Container>
           <Navigation {...this.props}/>
-          {/* <Portfolios {...this.props}/> */}
+          <Portfolios {...this.props}/>
         </Container>
       </>
     );
