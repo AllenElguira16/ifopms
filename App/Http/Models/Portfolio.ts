@@ -5,11 +5,11 @@ const portfolioSchema = new Schema({
   categoryId: {type: String, required: true},
   title: {type: String, required: true},
   description: {type: String, required: true},
-  preview: {type: String, required: true},
-  file: {type: String, required: true},
-  likes: {type: Number, required: true},
-  views: {type: Number, required: true},
-  comments: {type: Number, required: true},
+  // preview: {type: String, required: true},
+  fileName: {type: String, required: true},
+  likes: {type: Number},
+  views: {type: Number},
+  comments: {type: Number},
   dateCreated: {type: Date, default: Date.now()},
 });
 

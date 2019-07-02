@@ -1,5 +1,6 @@
 import { Request, Response, request, response } from 'express';
 import { Controller, Get, Delete, Post, Put, Middleware } from '@overnightjs/core';
+import path from 'path';
 import Portfolio from '../Models/Portfolio';
 import Validator from '../Middlewares/Validator';
 
@@ -19,14 +20,22 @@ class Portfolios{
   }
 
   @Post('add')
-  @Middleware(Validator.isAuthUser)
+  // @Middleware(Validator.isAuthUser)
   async newportfolio(request: Request, response: Response) {
-    // let { name } = request.body;
+    let { title, categoryId, desc }: any = request.body;
+    // let { file }: any = request.files;
     console.log(request.body);
-    // let portfolioObj = new portfolio({name});
-    // portfolioObj.save((error: any, categories: any) => {
-    //   if(error) return response.json({error});
-    //   return response.json({success: true, categories});
+    // let portfolioObj = new Portfolio({ title, category, desc });
+    // portfolioObj.save((error: any, portfolio: any) => {
+    //   if(error) return response.json({ error });
+      // file.forEach((img: any) => {
+      //   let pathString: string =  path.join(__dirname, `../public/uploads/portfolios/${portfolio._id}`);
+      //   img.mv(pathString, (error: object) => {
+      //     if(error) return response.json({error});
+      //     // return response.json({success: true});
+      //   });
+      // });
+      // file.mv()
     // });
   }
 

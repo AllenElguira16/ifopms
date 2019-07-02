@@ -61,7 +61,7 @@ class PostModal extends React.Component<any, any>{
     Object.keys(this.state.file).map((i: any, file: any) => {
       formData.append('file[]', this.state.file[i]);
     });
-    formData.append('category', this.state.category);
+    formData.append('categoryId', this.state.category);
     formData.append('title', this.state.title);
     formData.append('desc', this.state.desc);
     let { data }: AxiosResponse = await Axios.post('/api/portfolios/add', formData);
@@ -98,8 +98,8 @@ class PostModal extends React.Component<any, any>{
         <Form onSubmit={this.submit.bind(this)}>
           <ModalHeader toggle={this.props.toggleModal}>Add new Project</ModalHeader>
           <ModalBody>
-            {(alert.error) && <Alert color="danger">{alert.error}</Alert>}
-            {(alert.success) && <Alert color="success">{alert.success}</Alert>}
+            {/* {(alert.error) && <Alert color="danger">{alert.error}</Alert>}
+            {(alert.success) && <Alert color="success">{alert.success}</Alert>} */}
             <FormGroup>
               <Label for="title">Title</Label>
               <Input type="text" id="title" onChange={this.handleInput.bind(this)} name="title" value={title}/>
