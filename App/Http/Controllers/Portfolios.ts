@@ -3,21 +3,13 @@ import { Controller, Get, Delete, Post, Put, Middleware } from '@overnightjs/cor
 import path from 'path';
 import Portfolio from '../Models/Portfolio';
 import Validator from '../Middlewares/Validator';
-import User from '../Models/User';
 
 @Controller('api/portfolios')
 class Portfolios{
-  private data: Array<any> = [];
   @Get()
   async getAll(request: Request, response: Response) {
-    let categories: any = await Portfolio.find({}).populate('User').exec((error, data) => {
-      response.json(categories);
-    });
-
-    // categories.forEach(async (category: any) => {
-    //   let user = await User.findById(category.userId);
-    //   this.data.push(category);
-    // });
+    let data = await Portfolio.find().populate({path: 'user'}).exec();
+    response.json(data);
   }
 
   @Get(':id')
@@ -32,13 +24,16 @@ class Portfolios{
   async newportfolio(request: Request, response: Response) {
     let { title, categoryId, desc }: any = request.body;
     let { file }: any = request.files;
-    let portfolioObj = new Portfolio({ userId: request.session.user._id, categoryId, title, description: desc, previewFile: file[0].name });
+    let { user } = request.session;
+    let portfolioObj = new Portfolio({ 
+      user: user._id, categoryId, title, description: desc, previewFile: file[0].name 
+    });
     portfolioObj.save((error: any, portfolio: any) => {
-      if(error) return response.json({ error });
+      if(error) return response.json({ error: 'All fields are required' });
       file.forEach((img: any) => {
         let pathString: string =  path.join(__dirname, `../public/uploads/portfolios/${portfolio._id}/${img.name}`);
         img.mv(pathString, (error: object) => {
-          if(error) return response.json({error});
+          if(error) return response.json({error: 'All fields are required'});
         });
       });
       return response.json({ success: 'Portfolio successfully created' });

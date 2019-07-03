@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import path from 'path';
 import Validator from "../Middlewares/Validator";
 import User from "../Models/User";
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 @Controller('api/auth')
 class Auth{

@@ -61,7 +61,6 @@ class Portfolios extends React.Component<any, any>{
 
   render(){
     let { portfolios, modal, currentId } = this.state;
-    console.log(portfolios);
     return (
       <>
         <Row className="justify-content-between mt-4"> 
@@ -69,7 +68,7 @@ class Portfolios extends React.Component<any, any>{
             <PortfolioCard key={i} portfolio={portfolio} toggleModal={this.toggleModal} onClick={this.setCurrentId}/>
           ) }
         </Row>
-        {/* <Portfolio toggleModal={this.toggleModal.bind(this)} modal={modal} currentId={currentId}/> */}
+        <Portfolio toggleModal={this.toggleModal} modal={modal} currentId={currentId}/>
       </>
     );
   }
