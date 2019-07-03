@@ -1,5 +1,4 @@
 Public/scripts
-vendor
-node_modules
+node_modules/
 Dump
 dist
