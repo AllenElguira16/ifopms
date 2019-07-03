@@ -1,5 +1,5 @@
 import React from "react";
-import Axios from "axios";
+import Axios, { AxiosResponse } from "axios";
 import {
   Row, Card, CardImg, CardBody, CardText, CardTitle, Button, 
   Form, FormGroup, Input, Col
@@ -21,14 +21,17 @@ class Portfolios extends React.Component<any, any>{
     }
   }
 
-  fetchPortfolio(sort: any): void{
+  async fetchPortfolio(sort: any){
     let { categoryId } = this.props.match.params;
-    console.log(this.props.match.params);
-    // Axios.post('/api/portfolio', {sort: sort, categoryId}).then((res: any) => {
-    //   this.setState({
-    //     portfolios: res.data
-    //   });
-    // });
+    // console.log(this.props.match.params);
+    if(categoryId !== null) {
+      let { data }: AxiosResponse = await Axios.get('/api/portfolios');
+      // .then((res: any) => {
+      this.setState({
+        portfolios: data
+      });
+      // });
+    }
   }
 
   componentDidMount(){
@@ -42,7 +45,7 @@ class Portfolios extends React.Component<any, any>{
     // });
   }
 
-  toggleModal(e: any){
+  toggleModal = (e: any): void => {
     e.preventDefault();
     let {modal} = this.state;
     this.setState({
@@ -50,20 +53,21 @@ class Portfolios extends React.Component<any, any>{
     })
   }
 
-  setCurrentId(id: number){
+  setCurrentId = (id: number): void => {
     this.setState({
       currentId: id
     })
   }
 
   render(){
-    let {portfolios, modal, currentId} = this.state;
+    let { portfolios, modal, currentId } = this.state;
+    console.log(portfolios);
     return (
       <>
         <Row className="justify-content-between mt-4"> 
-          {/* {portfolios.map((portfolio: any) => 
-            <PortfolioCard key={portfolio.id} portfolio={portfolio} toggleModal={this.toggleModal.bind(this)} onClick={this.setCurrentId.bind(this)}/>
-          )} */}
+          { portfolios.length && portfolios.map((portfolio: any, i: number) => 
+            <PortfolioCard key={i} portfolio={portfolio} toggleModal={this.toggleModal} onClick={this.setCurrentId}/>
+          ) }
         </Row>
         {/* <Portfolio toggleModal={this.toggleModal.bind(this)} modal={modal} currentId={currentId}/> */}
       </>

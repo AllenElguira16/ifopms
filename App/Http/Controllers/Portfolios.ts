@@ -3,13 +3,21 @@ import { Controller, Get, Delete, Post, Put, Middleware } from '@overnightjs/cor
 import path from 'path';
 import Portfolio from '../Models/Portfolio';
 import Validator from '../Middlewares/Validator';
+import User from '../Models/User';
 
 @Controller('api/portfolios')
 class Portfolios{
+  private data: Array<any> = [];
   @Get()
   async getAll(request: Request, response: Response) {
-    let categories = await Portfolio.find({});
-    response.json(categories);
+    let categories: any = await Portfolio.find({}).populate('User').exec((error, data) => {
+      response.json(categories);
+    });
+
+    // categories.forEach(async (category: any) => {
+    //   let user = await User.findById(category.userId);
+    //   this.data.push(category);
+    // });
   }
 
   @Get(':id')
