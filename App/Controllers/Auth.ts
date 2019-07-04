@@ -4,6 +4,7 @@ import path from 'path';
 import Validator from "../Middlewares/Validator";
 import User from "../Models/User";
 import bcrypt from 'bcryptjs';
+import { TUser } from "interfaces/typings";
 
 @Controller('api/auth')
 class Auth{
@@ -20,11 +21,9 @@ class Auth{
 
   @Post('login')
   async userLogin(request: Request, response: Response) {
-    const { username, password }: TUser = request.body;
-    // 
+    const { username, password } = request.body;
     let user: any = await User.findOne({ username });
     if(!user) return response.json({ error: "Username doesn't exists!" });
-    // 
     let match = await bcrypt.compare(password, user.password);
     if(!match) return response.json({ error: "Password doesn't match" });
     request.session.user = user;

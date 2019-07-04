@@ -1,8 +1,9 @@
 import React from 'react';
 import { ModalHeader, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { PortfolioHeaderProps } from 'interfaces/typings';
 
-class Header extends React.Component<any, any>{
+class Header extends React.Component<PortfolioHeaderProps, any>{
   
   render() {
     let { portfolio, toggleModal, user } = this.props;
@@ -24,7 +25,7 @@ class Header extends React.Component<any, any>{
         </div>  
         <div className="small">
           <span className="text-muted"> By </span>
-          <Link to={`/user/${portfolio.username}`}>{portfolio.username}</Link>
+          <Link to={`/user/${portfolio.user.username}`}>{portfolio.user.username}</Link>
         </div>
       </ModalHeader>
     );
