@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, Nav, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
-import PortfolioModal from '../../Forms/PortfolioModal';
+import PortfolioModal from '../../Components/Forms/PortfolioModal';
 import Axios, { AxiosResponse } from 'axios';
 
 class Navigation extends React.Component<any, any>{

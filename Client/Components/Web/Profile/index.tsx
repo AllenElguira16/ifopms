@@ -5,8 +5,8 @@ import Info from "./Info";
 import {
   Container, Row, Col
 } from "reactstrap";
-import PortfolioCard from "../Portfolios/PortfolioCard";
-import Portfolio from "../Portfolio";
+import PortfolioCard from "../PortfoliosHome/Portfolios/PortfolioCard";
+import Portfolio from "../PortfoliosHome/Portfolios/Portfolio";
 
 class Profile extends React.Component<any, any>{
   constructor(props: any){

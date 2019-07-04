@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Axios from 'axios';
+import Axios, { AxiosResponse } from 'axios';
 import UserPortfolios from "./UserPortfolios";
 import Comment from "./Comment/Comment";
 import { Link } from 'react-router-dom';
@@ -7,7 +7,6 @@ import {
   Col, Container, Card, CardImg, CardBody, Row, CardHeader, Modal, ModalHeader, ModalBody, Button, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from 'reactstrap';
 import LikeNav from "./LikeNav";
-import File from "../File";
 import Content from './Content';
 
 class Portfolio extends React.PureComponent<any, any>{
@@ -19,57 +18,56 @@ class Portfolio extends React.PureComponent<any, any>{
       commentOpen: false,
       user: {}
     }
-    console.log('yow');
   } 
 
-  fetchData(id: any){
-    Axios.get(`/api/portfolio/${id}`).then(res => {
-      this.setState({
-        portfolio: res.data[0],
-        loading: false
-      })
-    });
+  async fetchData(id: any){
+    let res = await Axios.get(`/api/portfolios/${id}`)
+    // .then(res => {
+    this.setState({
+      portfolio: res.data,
+      loading: false
+    })
+    // });
   }
 
-  toggleComment(e: any){
+  toggleComment = (e: any) => {
     e.preventDefault();
     this.setState({
       commentOpen: !this.state.commentOpen
     });
   }
 
-  componentDidMount(){
-    Axios.get('/api/getUser').then(res => {
-      this.setState({
-        user: res.data
-      })
-    });
+  async componentDidMount(){
+
+    let res: AxiosResponse = await Axios.get('/api/auth/user')
+    this.setState({
+      user: res.data
+    })
   }
 
   componentWillReceiveProps(props: any){
     let {currentId} = props;
-    console.log(props);
     if(currentId !== null){
       this.fetchData(currentId);
     }
   }
 
   render(){
-    let {portfolio, loading, user} = this.state;
-    let {modal} = this.props;
+    let { portfolio, loading, user } = this.state;
+    let { modal, toggleModal } = this.props;
     return (
       <div>
-        <Modal isOpen={modal} toggle={this.props.toggleModal} size="xl">
+        <Modal isOpen={modal} toggle={toggleModal} size="xl">
           {!loading ? 
             <>
-              <ModalHeader toggle={this.props.toggleModal}>
+              <ModalHeader toggle={toggleModal}>
                 <div>
                   <span>{portfolio.title}</span>
                   <UncontrolledDropdown tag={"span"}>
                     <DropdownToggle color="white" className="">
                       <i className="material-icons">edit</i>
                     </DropdownToggle>
-                    <DropdownMenu left>
+                    <DropdownMenu left="true">
                       <DropdownItem>Edit</DropdownItem>
                       <DropdownItem>Delete</DropdownItem>
                     </DropdownMenu>
@@ -86,9 +84,9 @@ class Portfolio extends React.PureComponent<any, any>{
                 </div>
                 <Row>
                   <Col sm={8}>
-                    {user.id !== undefined ?  
+                    {user._id !== undefined ?  
                       <>
-                        <LikeNav userId={portfolio.userId} id={portfolio.id} toggleComment={this.toggleComment.bind(this)} commentOpen={this.state.commentOpen}/>
+                        <LikeNav userId={portfolio.user._id} id={portfolio.id} toggleComment={this.toggleComment} commentOpen={this.state.commentOpen}/>
                         {this.state.commentOpen && <Comment portfolioId={portfolio.id}/> }
                       </>
                     : 

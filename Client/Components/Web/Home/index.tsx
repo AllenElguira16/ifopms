@@ -1,6 +1,6 @@
 import * as React from "react";
 import Axios, { AxiosResponse } from "axios";
-import Portfolios from "../Portfolios";
+import Portfolios from "../PortfoliosHome/Portfolios";
 import {
   Container, Jumbotron, Navbar, Nav, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarBrand, Form, FormGroup, Input, Col, Button, InputGroup, Row
 } from "reactstrap";

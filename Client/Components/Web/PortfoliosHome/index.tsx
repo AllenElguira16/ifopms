@@ -1,11 +1,11 @@
 import * as React from "react";
 import Axios from "axios";
-import Portfolios from "../Portfolios";
+import Portfolios from "./Portfolios";
 import {
   Container, Jumbotron, Navbar, Nav, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarBrand
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import Navigation from "./Navigation";
+import Navigation from "../Home/Navigation";
 
 class PortfoliosHome extends React.Component<any, any>{
   constructor(props: any){

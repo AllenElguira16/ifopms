@@ -7,7 +7,7 @@ import {
 import { Link } from "react-router-dom";
 import io from 'socket.io-client';
 import PortfolioCard from './PortfolioCard';
-import Portfolio from "../Portfolio";
+import Portfolio from "./Portfolio";
 
 
 class Portfolios extends React.Component<any, any>{
@@ -23,14 +23,11 @@ class Portfolios extends React.Component<any, any>{
 
   async fetchPortfolio(sort: any){
     let { categoryId } = this.props.match.params;
-    // console.log(this.props.match.params);
     if(categoryId !== null) {
       let { data }: AxiosResponse = await Axios.get('/api/portfolios');
-      // .then((res: any) => {
       this.setState({
         portfolios: data
       });
-      // });
     }
   }
 

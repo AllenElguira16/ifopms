@@ -3,6 +3,8 @@ import { Controller, Get, Delete, Post, Put, Middleware } from '@overnightjs/cor
 import path from 'path';
 import Portfolio from '../Models/Portfolio';
 import Validator from '../Middlewares/Validator';
+import fs from 'fs';
+// import path fr;
 
 @Controller('api/portfolios')
 class Portfolios{
@@ -12,10 +14,19 @@ class Portfolios{
     response.json(data);
   }
 
+  @Post('images')
+  getImages(request: Request, response: Response) {
+    let { id } = request.body;
+    let dir = path.resolve(__dirname, `../Public/uploads/portfolios/${id}`);
+    fs.readdir(dir, (err, files) => {
+      response.json(files)
+    });
+  }
+
   @Get(':id')
   async get(request: Request, response: Response) {
     let { id } = request.params;
-    let portfolio = await Portfolio.findById({_id: id});
+    let portfolio = await Portfolio.findById({_id: id}).populate({path: 'user'}).exec();
     response.json(portfolio);
   }
 

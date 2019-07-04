@@ -5,11 +5,11 @@ import fileUpload from 'express-fileupload';
 import path from 'path';
 import { Server as OvernightServer } from '@overnightjs/core';
 import mongoose from 'mongoose';
-import Home from './Http/Controllers/Home';
-import Users from './Http/Controllers/Users';
-import Auth from './Http/Controllers/Auth';
-import Categories from './Http/Controllers/Categories';
-import Portfolios from './Http/Controllers/Portfolios';
+import Home from './Controllers/Home';
+import Users from './Controllers/Users';
+import Auth from './Controllers/Auth';
+import Categories from './Controllers/Categories';
+import Portfolios from './Controllers/Portfolios';
 
 class Server extends OvernightServer{
   constructor() {

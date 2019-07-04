@@ -9,6 +9,7 @@ import bcrypt from 'bcryptjs';
 class Auth{
   
   @Get('user')
+  @Middleware(Validator.isAuthUser)
   getAuthUser(request: Request, response: Response){
     const {user}: any = request.session;
     if(!user) {

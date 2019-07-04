@@ -2,7 +2,7 @@ import React from "react"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import Axios, { AxiosResponse } from "axios";
 
-import Home from "./Components/Home"
+import Home from "./Home"
 // import Footer from "./Components/Footer"
 import Header from "./Components/Header"
 // import PageNotFound from "./Components/PageNotFound";
@@ -15,7 +15,7 @@ import Register from "./Components/Forms/Register";
 // import EditProfile from "./Components/Profile/EditProfile";
 // import SearchPage from "./Components/SearchPage";
 // import Jobs from "./Components/Jobs";
-import PortfoliosHome from "./Components/Home/PortfoliosHome";
+import PortfoliosHome from "./PortfoliosHome";
 
 class Web extends React.Component<any, any>{
   constructor(props: any){

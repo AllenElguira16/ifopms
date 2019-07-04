@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Button, Container, Row, Col, ButtonGroup, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
-import PortfolioModal from "../Forms/PortfolioModal";
+import PortfolioModal from "../Components/Forms/PortfolioModal";
 import { Link } from "react-router-dom";
 import Axios, { AxiosResponse } from 'axios';
 

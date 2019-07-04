@@ -26,9 +26,9 @@
     "baseUrl": "./",                          /* Base directory to resolve non-absolute module names. */
     "paths": {                                /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
       "@App/*": ["app/*"],
-      "@Controllers/*": ["app/http/controllers/*"],
-      "@Middlewares/*": ["app/http/middlewares/*"],
-      "@Models/*": ["app/http/models/*"],
+      "@Controllers/*": ["App/Controllers/*"],
+      "@Middlewares/*": ["App/Middlewares/*"],
+      "@Models/*": ["App/Models/*"],
       "@Routes/*": ["app/routes/*"],
       "@Interfaces": ["interfaces"]
     },

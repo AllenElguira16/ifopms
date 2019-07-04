@@ -8,7 +8,6 @@ class Portfolio extends React.Component<any, any>{
   //   modal: false
   // }
   onClick = (id: any, e: React.MouseEvent<HTMLElement>) => {
-    console.log(this.props);
     this.props.toggleModal(e);
     this.props.onClick(id);
   }
