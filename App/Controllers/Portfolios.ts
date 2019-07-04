@@ -26,7 +26,7 @@ class Portfolios{
   @Get(':id')
   async get(request: Request, response: Response) {
     let { id } = request.params;
-    let portfolio = await Portfolio.findById({_id: id}).populate({path: 'user'}).exec();
+    let portfolio = await Portfolio.findById(id).populate({path: 'user'}).exec();
     response.json(portfolio);
   }
 

@@ -78,5 +78,6 @@
     "webpack-cli": "^3.3.5",
     "webpack-node-externals": "^1.7.2",
     "webpack-notifier": "^1.8.0"
-  }
+  },
+  "typings": "./interfaces/module.d.ts"
 }

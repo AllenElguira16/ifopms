@@ -22,12 +22,10 @@ class Portfolio extends React.PureComponent<any, any>{
 
   async fetchData(id: any){
     let res = await Axios.get(`/api/portfolios/${id}`)
-    // .then(res => {
     this.setState({
       portfolio: res.data,
       loading: false
     })
-    // });
   }
 
   toggleComment = (e: any) => {
@@ -38,7 +36,6 @@ class Portfolio extends React.PureComponent<any, any>{
   }
 
   async componentDidMount(){
-
     let res: AxiosResponse = await Axios.get('/api/auth/user')
     this.setState({
       user: res.data
@@ -55,28 +52,13 @@ class Portfolio extends React.PureComponent<any, any>{
   render(){
     let { portfolio, loading, user } = this.state;
     let { modal, toggleModal } = this.props;
+    
     return (
       <div>
         <Modal isOpen={modal} toggle={toggleModal} size="xl">
           {!loading ? 
             <>
-              <ModalHeader toggle={toggleModal}>
-                <div>
-                  <span>{portfolio.title}</span>
-                  <UncontrolledDropdown tag={"span"}>
-                    <DropdownToggle color="white" className="">
-                      <i className="material-icons">edit</i>
-                    </DropdownToggle>
-                    <DropdownMenu left="true">
-                      <DropdownItem>Edit</DropdownItem>
-                      <DropdownItem>Delete</DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                </div>  
-                <div className="small">
-                  <span className="text-muted"> By </span><Link to={`/user/${portfolio.username}`}>{portfolio.username}</Link>
-                </div>
-              </ModalHeader>
+              
               <ModalBody>
                 <div className="border-bottom pb-4" style={{whiteSpace: "pre-line"}}>{portfolio.description}</div>
                 <div className="wrapper position-relative overflow-hidden">
