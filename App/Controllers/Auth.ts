@@ -23,14 +23,11 @@ class Auth{
   @Post('login')
   async userLogin(request: Request, response: Response) {
     const { username, password }: TUser = request.body;
-    let { user } = request.session as RequestSession;
     let userData: any = await User.findOne({ username });
     if(!userData) return response.json({ error: "Username doesn't exists!" });
     let match = await bcrypt.compare(password, userData.password);
     if(!match) return response.json({ error: "Password doesn't match" });
-    if(!request.session) {
-      user = userData;
-    }
+    request.session.user = userData;
     return response.json({success: true});
   }
 

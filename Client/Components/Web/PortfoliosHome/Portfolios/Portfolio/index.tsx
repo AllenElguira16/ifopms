@@ -1,13 +1,15 @@
 import * as React from 'react';
 import Axios, { AxiosResponse } from 'axios';
-import UserPortfolios from "./UserPortfolios";
-import Comment from "./Comment/Comment";
+import UserPortfolios from "./Body/UserPortfolios";
+import Comment from "./Body/Comment";
 import { Link } from 'react-router-dom';
 import { 
   Col, Container, Card, CardImg, CardBody, Row, CardHeader, Modal, ModalHeader, ModalBody, Button, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from 'reactstrap';
-import LikeNav from "./LikeNav";
-import Content from './Content';
+import LikeNav from "./Body/LikeNav";
+import Content from './Body/Content';
+import Header from './Header';
+import Body from './Body';
 
 class Portfolio extends React.PureComponent<any, any>{
   constructor(props: any){
@@ -15,7 +17,6 @@ class Portfolio extends React.PureComponent<any, any>{
     this.state = {
       portfolio: {},
       loading: true,
-      commentOpen: false,
       user: {}
     }
   } 
@@ -26,13 +27,6 @@ class Portfolio extends React.PureComponent<any, any>{
       portfolio: res.data,
       loading: false
     })
-  }
-
-  toggleComment = (e: any) => {
-    e.preventDefault();
-    this.setState({
-      commentOpen: !this.state.commentOpen
-    });
   }
 
   async componentDidMount(){
@@ -58,27 +52,8 @@ class Portfolio extends React.PureComponent<any, any>{
         <Modal isOpen={modal} toggle={toggleModal} size="xl">
           {!loading ? 
             <>
-              
-              <ModalBody>
-                <div className="border-bottom pb-4" style={{whiteSpace: "pre-line"}}>{portfolio.description}</div>
-                <div className="wrapper position-relative overflow-hidden">
-                  <Content portfolio={portfolio}/>
-                </div>
-                <Row>
-                  <Col sm={8}>
-                    {user._id !== undefined ?  
-                      <>
-                        <LikeNav userId={portfolio.user._id} id={portfolio.id} toggleComment={this.toggleComment} commentOpen={this.state.commentOpen}/>
-                        {this.state.commentOpen && <Comment portfolioId={portfolio.id}/> }
-                      </>
-                    : 
-                    <Link to="/login">Login first</Link>}
-                  </Col>
-                  <Col sm={4}>
-                    <UserPortfolios portfolio={portfolio}></UserPortfolios>
-                  </Col>
-                </Row>
-              </ModalBody>
+              <Header portfolio={portfolio} toggleModal={toggleModal} user={user}/>
+              <Body user={user} portfolio={portfolio}/>
             </>
           :
           <Container>Loading...</Container>

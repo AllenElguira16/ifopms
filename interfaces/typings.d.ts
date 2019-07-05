@@ -29,6 +29,7 @@ type TUser = {
 }
 
 export interface Portfolio{
+  _id?: string;
   user?: TUser;
   title?: string;
   categoryId?: string,
@@ -45,4 +46,8 @@ export interface PortfolioHeaderProps{
   toggleModal: any;
   user: TUser;
 }
-// }
+
+export interface PortfolioBodyProps{
+  portfolio: Portfolio;
+  user: TUser;  
+}

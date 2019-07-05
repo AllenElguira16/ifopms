@@ -13,31 +13,29 @@ class Comment extends React.Component<any, any>{
       comment: ''
     }
   }
-  handleInput(e: React.FormEvent<HTMLInputElement>){
+
+  handleInput = (e: React.FormEvent<HTMLInputElement>) => {
     this.setState({
       [e.currentTarget.name]: e.currentTarget.value
     }) 
   }
-  submit = (e: React.FormEvent<HTMLFormElement>) => {
+
+  submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    Axios.post('/api/newComments', {
+    let { data }: AxiosResponse = await Axios.post('/api/newComments', {
       comment: this.state.comment,
       portfolioId: this.props.portfolioId
-    }).then((res: AxiosResponse) => {
-      if(res.data.success){
-        this.setState({
-          comment: ''
-        });
-      }
-    });
+    })
+    if(data.success) this.setState({comment: ''});
   }
   render() {
+    let { comment } = this.props;
     return (
       <div>
         <h5>Comments</h5>
         <Form onSubmit={this.submit}>
           <FormGroup>
-            <Input type="text" name="comment" autoComplete="off" value={this.state.comment} onChange={this.handleInput.bind(this)} placeholder="Add a comment"/>
+            <Input type="text" name="comment" autoComplete="off" value={comment} onChange={this.handleInput} placeholder="Add a comment"/>
             <CommentList portfolioId={this.props.portfolioId}></CommentList>
           </FormGroup>
         </Form>        

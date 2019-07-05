@@ -1,6 +1,6 @@
 import React from "react";
 import io from "socket.io-client";
-import Axios from "axios";
+import Axios, { AxiosResponse } from "axios";
 
 
 class CommentList extends React.Component<any, any>{
@@ -20,12 +20,12 @@ class CommentList extends React.Component<any, any>{
     socket.on('newComment', () => this.fetchComments());
   }
   // fetch comments
-  fetchComments(){
-    Axios.get(`/api/portfolio/${this.props.portfolioId}/comments`).then((res: any) => {
-      this.setState({
-        comments: res.data
-      });
-    })
+  async fetchComments(){
+    let { portfolioId } = this.props;
+    let { data }: AxiosResponse = await Axios.get(`/api/portfolio/${portfolioId}/comments`)
+    this.setState({
+      comments: data
+    });
   }
 
   render(){
