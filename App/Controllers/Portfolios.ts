@@ -4,6 +4,7 @@ import path from 'path';
 import Portfolio from '../Models/Portfolio';
 import Validator from '../Middlewares/Validator';
 import fs from 'fs';
+import { RequestSession, TUser } from 'interfaces/typings';
 // import path fr;
 
 @Controller('api/portfolios')
@@ -35,9 +36,9 @@ class Portfolios{
   async newportfolio(request: Request, response: Response) {
     let { title, categoryId, desc }: any = request.body;
     let { file }: any = request.files;
-    let { user } = request.session;
+    let session = request.session as RequestSession;
     let portfolioObj = new Portfolio({ 
-      user: user._id, categoryId, title, description: desc, previewFile: file[0].name 
+      user: session.user, categoryId, title, description: desc, previewFile: file[0].name 
     });
     portfolioObj.save((error: any, portfolio: any) => {
       if(error) return response.json({ error: 'All fields are required' });

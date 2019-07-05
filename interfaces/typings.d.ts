@@ -1,25 +1,29 @@
+import { Document } from "mongoose";
+
 // declare module 'Interfaces' {
 
-declare global{
-  namespace Express{
-    interface Request{
-      session?: {
-        user: TUser
-      };
-      body?: {
-        user: TUser
-      }
-    }
-  }
+// declare global{
+//   namespace Express{
+//     interface Request{
+//       session?: MySession
+//       body?: {
+//         user: TUser
+//       }
+//     }
+//   }
+// }
+
+interface RequestSession extends Express.Session{
+  user?: TUser
 }
 
-export interface TUser{
+type TUser = {
   _id?: string;
   firstname?: string, 
   lastname?: string, 
   username?: string,
   email?: string,
-  password: string,
+  password?: string,
   repassword?: string, 
   type?: string
 }

@@ -4,7 +4,8 @@ import path from 'path';
 import Validator from "../Middlewares/Validator";
 import User from "../Models/User";
 import bcrypt from 'bcryptjs';
-import { TUser } from "interfaces/typings";
+import { RequestSession, TUser } from "interfaces/typings";
+// import { TUser } from "interfaces/typings";
 
 @Controller('api/auth')
 class Auth{
@@ -21,12 +22,15 @@ class Auth{
 
   @Post('login')
   async userLogin(request: Request, response: Response) {
-    const { username, password } = request.body;
-    let user: any = await User.findOne({ username });
-    if(!user) return response.json({ error: "Username doesn't exists!" });
-    let match = await bcrypt.compare(password, user.password);
+    const { username, password }: TUser = request.body;
+    let { user } = request.session as RequestSession;
+    let userData: any = await User.findOne({ username });
+    if(!userData) return response.json({ error: "Username doesn't exists!" });
+    let match = await bcrypt.compare(password, userData.password);
     if(!match) return response.json({ error: "Password doesn't match" });
-    request.session.user = user;
+    if(!request.session) {
+      user = userData;
+    }
     return response.json({success: true});
   }
 
@@ -35,15 +39,18 @@ class Auth{
   async userRegistration(request: Request, response: Response) {
     const { firstname, lastname, email, username, password, repassword, type }: TUser = request.body;
     const { file }: any = request.files;
+    let { user } = request.session as RequestSession;
     // Check username
     const userObj = await User.findOne({ username });
     if(userObj) return response.json({ error: 'username already exists' });
     if(password !== repassword) return response.json({ error: 'password doesn\'t match' });
     bcrypt.hash(password, 10, (err, hash) => {
-      const user = new User({ firstname, lastname, email, username, password: hash, type, profilePic: file.name });
-      user.save((err, newUser) => {
+      const userModel = new User({ firstname, lastname, email, username, password: hash, type, profilePic: file.name });
+      userModel.save((err, newUser) => {
         if(err) return response.json({err: 'Error creating user'});
-        request.session.user = newUser;
+        if(!user) {
+          user = newUser;
+        }
         file.mv(path.join(__dirname, `../public/uploads/profiles/${newUser._id}/${file.name}`), (errMsg: object) => {
           if(errMsg) return response.json({error: 'Error uploading file'});
           return response.json({success: true});
