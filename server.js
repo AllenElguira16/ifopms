@@ -1,6 +1,6 @@
-var express = require("express");
-var http = require("https");
-var fs = require("fs");
+import express from "express";
+import http from "https";
+import fs from "fs";
 
 var app = express();
 // var privateKey = fs.readFileSync('../../apache/cert/www.ifopms.dev/server.key', 'utf8');

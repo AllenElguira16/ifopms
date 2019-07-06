@@ -5,19 +5,14 @@ import fileUpload from 'express-fileupload';
 import path from 'path';
 import { Server as OvernightServer } from '@overnightjs/core';
 import mongoose from 'mongoose';
-import Home from './Controllers/Home';
-import Users from './Controllers/Users';
-import Auth from './Controllers/Auth';
-import Categories from './Controllers/Categories';
-import Portfolios from './Controllers/Portfolios';
-import Comments from './Controllers/Comments';
+import Controllers from './Controllers';
 
 class Server extends OvernightServer{
   constructor() {
     super();
 
     // this.app.use();
-    this.app.use(session({
+    this.use(session({
       secret: 'secret',
       resave: true,
       saveUninitialized: true,
@@ -25,23 +20,31 @@ class Server extends OvernightServer{
         secure: false
       }
     }));
-    this.app.use(fileUpload({
+    this.use(fileUpload({
       createParentPath: true
     }));
-    this.app.use(expressValidator());
-    this.app.use(express.urlencoded({ extended: false }));
-    this.app.use(express.json());
-    this.app.use(express.static(path.join(__dirname, '../', '/public')));
+    this.use(expressValidator());
+    this.use(express.urlencoded({ extended: false }));
+    this.use(express.json());
+    this.use(express.static(path.join(__dirname, '../', '/public')));
     
 
     /**
      * Changing default Settings
      */
-    this.app.set('views', path.join(__dirname, '../', 'client/views'));
-    this.app.set('view engine', "ejs");
-    this.app.set('json spaces', 2);
+    this.set('views', path.join(__dirname, '../', 'client/views'));
+    this.set('view engine', "ejs");
+    this.set('json spaces', 2);
 
-    super.addControllers([Comments, Users, Auth, Portfolios, Categories, Home]);
+    super.addControllers(Controllers);
+  }
+
+  public use(params: any) {
+    this.app.use(params);
+  }
+
+  public set(params: any, value: any) {
+    this.app.set(params, value);
   }
 
   public start(port: number) {
