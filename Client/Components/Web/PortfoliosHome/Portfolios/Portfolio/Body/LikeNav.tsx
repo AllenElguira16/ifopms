@@ -42,15 +42,15 @@ class LikeNav extends React.Component<any, any>{
   }
 
   componentWillUpdate(){
-    let socket: any = io('localhost:8000');
-    socket.on('updateLike', () => {
-      this.fetchLikes();
-    });
+    // let socket: any = io('localhost:8000');
+    // socket.on('updateLike', () => {
+    //   this.fetchLikes();
+    // });
   }
   
   componentDidMount(){
-    this.fetchUser();
-    this.fetchLikes();
+    // this.fetchUser();
+    // this.fetchLikes();
   }
 
   // componentWillReceiveProps(){

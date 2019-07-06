@@ -16,13 +16,13 @@ class CommentList extends React.Component<any, any>{
   }
 
   componentWillUpdate(){
-    let socket: any = io('localhost:8000');
-    socket.on('newComment', () => this.fetchComments());
+    // let socket: any = io('localhost:8000');
+    // socket.on('newComment', () => this.fetchComments());
   }
   // fetch comments
   async fetchComments(){
     let { portfolioId } = this.props;
-    let { data }: AxiosResponse = await Axios.get(`/api/portfolio/${portfolioId}/comments`)
+    let { data }: AxiosResponse = await Axios.get(`/api/comments/${portfolioId}`)
     this.setState({
       comments: data
     });

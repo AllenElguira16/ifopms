@@ -44,10 +44,9 @@ const serverConfig: webpack.Configuration = {
   resolve: {
     extensions: ['.ts', '.js'],
     alias: {
-      "@App": path.resolve(__dirname, "app"),
-      "@Controllers": path.resolve(__dirname, "app/http/controllers"),
-      "@Middlewares": path.resolve(__dirname, "app/http/middlewares"),
-      "@Models": path.resolve(__dirname, "app/http/models"),
+      "@Controllers": path.resolve(__dirname, "app/controllers"),
+      "@Middlewares": path.resolve(__dirname, "app/middlewares"),
+      "@Models": path.resolve(__dirname, "app/models"),
       "@Routes": path.resolve(__dirname, "app/routes"),
       "@Interfaces": path.resolve(__dirname, "interfaces")
     }

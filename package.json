@@ -1,7 +1,7 @@
 {
-  "name": "thecodeninja",
+  "name": "ifopms",
   "version": "1.0.0",
-  "description": "Light-weight Fullstack ExpressTS and ReactJS!",
+  "description": "Light-weight Fullstack ExpressTS and ReactTS!",
   "main": "app.js",
   "scripts": {
     "dev": "SET NODE_ENV=development && webpack -d --hide-modules",
@@ -12,7 +12,7 @@
     "webapp",
     "webapp-mvc",
     "light-weight",
-    "FullStack Express MVC and ReactJS"
+    "FullStack"
   ],
   "author": "Allen Elguira",
   "license": "ISC",

@@ -10,6 +10,7 @@ import Users from './Controllers/Users';
 import Auth from './Controllers/Auth';
 import Categories from './Controllers/Categories';
 import Portfolios from './Controllers/Portfolios';
+import Comments from './Controllers/Comments';
 
 class Server extends OvernightServer{
   constructor() {
@@ -40,7 +41,7 @@ class Server extends OvernightServer{
     this.app.set('view engine', "ejs");
     this.app.set('json spaces', 2);
 
-    super.addControllers([Users, Auth, Portfolios, Categories, Home]);
+    super.addControllers([Comments, Users, Auth, Portfolios, Categories, Home]);
   }
 
   public start(port: number) {

@@ -22,8 +22,8 @@ class Comment extends React.Component<any, any>{
 
   submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let { data }: AxiosResponse = await Axios.post('/api/newComments', {
-      comment: this.state.comment,
+    let { data }: AxiosResponse = await Axios.post('/api/comments', {
+      content: this.state.comment,
       portfolioId: this.props.portfolioId
     })
     if(data.success) this.setState({comment: ''});
