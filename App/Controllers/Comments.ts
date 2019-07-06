@@ -9,7 +9,7 @@ class Comments{
   @Get(':portfolioId')
   async fetchAllCommentsByPortfolioId(request: Request, response: Response) {
     let { portfolioId } = request.params;
-    let commentData = await Comment.find({portfolioId});
+    let commentData = await Comment.find({portfolioId}).populate('user').exec();
     response.json(commentData);
   }
 

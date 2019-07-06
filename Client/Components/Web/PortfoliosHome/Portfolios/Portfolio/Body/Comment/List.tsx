@@ -23,16 +23,14 @@ class CommentList extends React.Component<any, any>{
   async fetchComments(){
     let { portfolioId } = this.props;
     let { data }: AxiosResponse = await Axios.get(`/api/comments/${portfolioId}`)
-    this.setState({
-      comments: data
-    });
+    this.setState({comments: data});
   }
 
   render(){
     return (
-      this.state.comments.map((comment: any)=> 
-        <div key={comment.id} className="border-bottom pt-2">
-          <h6>@{comment.username}</h6>
+      this.state.comments.map((comment: any, i: number)=> 
+        <div key={i} className="border-bottom pt-2">
+          <h6>@{comment.user.username}</h6>
           <p>{comment.content}</p>
         </div>
       )
