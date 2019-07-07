@@ -1,5 +1,6 @@
 {
     "watch": ["./"],
     "ext": "ts",
-    "exec": "ts-node ./public/index.ts"
+    "exclude": ["./Client"],
+    "exec": "npx ts-node ./public/index.ts"
 }

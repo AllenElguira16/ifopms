@@ -18,7 +18,7 @@ class Portfolios{
   @Post('images')
   getImages(request: Request, response: Response) {
     let { id } = request.body;
-    let dir = path.resolve(__dirname, `../Public/uploads/portfolios/${id}`);
+    let dir = path.resolve(__dirname, `../../Public/uploads/portfolios/${id}`);
     fs.readdir(dir, (err, files) => {
       response.json(files)
     });

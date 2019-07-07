@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "SET NODE_ENV=development && webpack -d --hide-modules",
     "build": "SET NODE_ENV=production && webpack -p --hide-modules",
-    "start": "nodemon --watch dist dist/app.bundle.js"
+    "start-production": "nodemon --watch dist dist/app.bundle.js",
+    "start": "nodemon"
   },
   "keywords": [
     "webapp",

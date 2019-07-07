@@ -6,6 +6,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import nodeExternals from 'webpack-node-externals';
+const isProd = process.env.NODE_ENV.trim() === 'production';
 
 /**
  * Node Env constants
@@ -85,4 +86,5 @@ const clientConfig: webpack.Configuration = {
   }
 };
 
-export default [serverConfig, clientConfig];
+
+export default isProd ? [serverConfig, clientConfig] : clientConfig;
