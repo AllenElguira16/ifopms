@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Application } from 'express';
 import expressValidator from 'express-validator';
 import session from 'express-session';
 import fileUpload from 'express-fileupload';
@@ -11,7 +11,6 @@ class Server extends OvernightServer{
   constructor() {
     super();
 
-    // this.app.use();
     this.use(session({
       secret: 'secret',
       resave: true,
@@ -52,6 +51,10 @@ class Server extends OvernightServer{
       useNewUrlParser: true
     }).then(() => console.log('MongoDB Connected Successfully')).catch((err) => console.error(err));
     this.app.listen(port, () => console.log('Server started on port ' + port));
+  }
+
+  public getInstance() {
+    return this;
   }
 }
 

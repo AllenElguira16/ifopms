@@ -1,10 +1,11 @@
-import * as React from "react";
+import React from "react";
 import {
   Form, FormGroup, Label, Input
 } from "reactstrap";
 
 import CommentList from "./List";
 import Axios, { AxiosResponse } from "axios";
+import io from 'socket.io-client';
 
 class Comment extends React.Component<any, any>{
   constructor(props: any){
@@ -26,7 +27,11 @@ class Comment extends React.Component<any, any>{
       content: this.state.comment,
       portfolioId: this.props.portfolioId
     })
-    if(data.success) this.setState({comment: ''});
+    if(data.success) { 
+      const socket = io(':3000');
+      socket.emit('newComment');
+      this.setState({comment: ''});
+    }
   }
   render() {
     let { comment } = this.props;

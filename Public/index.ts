@@ -1,15 +1,16 @@
 import app from '../App/bootstrap';
-import socket from 'socket.io';
+// import http from 'http';
+import socketjs from 'socket.io';
 
-const io = socket(app);
+const io = socketjs(3000);
 
-console.log('Socket.IO Connected Successfully');
 
-io.on('connection', function (socket) {
+io.on('connection', (socket) =>  {
   socket.on('newPortfolio', () => {
     io.emit('newPortfolio');
   });
   socket.on('newComment', () => {
+    console.log('newComment');
     io.emit('newComment');
   });
   socket.on('updateLike', () => {

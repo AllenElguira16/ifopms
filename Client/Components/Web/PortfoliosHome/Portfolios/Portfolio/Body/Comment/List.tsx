@@ -16,7 +16,7 @@ class CommentList extends React.Component<any, any>{
   }
 
   componentWillUpdate(){
-    let socket: any = io('localhost:8000');
+    let socket: any = io(':3000');
     socket.on('newComment', () => this.fetchComments());
   }
   // fetch comments
