@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import { Controller, Get, Post, Put, Delete, Middleware } from '@overnightjs/core';
-import Comment from '@Models/Comment';
-import { AxiosResponse } from 'axios';
-import Validator from '@Middlewares/Validator';
+import Comment from '../Models/Comment';
+import Validator from '../Middlewares/Validator';
 
 @Controller('api/comments')
 class Comments{
