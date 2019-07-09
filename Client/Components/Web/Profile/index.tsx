@@ -34,7 +34,7 @@ class Profile extends React.Component<any, any>{
     // this.fetchUser(this.props);
     // this.fetchData(this.props.match.params.username, 'dateCreated');
     let { username } = this.props.match.params;
-    let { data }: AxiosResponse = await Axios.get(`/api/users/${username}`);
+    let { data }: AxiosResponse = await Axios.get(`/api/users/portfolios/${username}`);
     this.setState({
       user: data.user,
       portfolios: data.portfolios,

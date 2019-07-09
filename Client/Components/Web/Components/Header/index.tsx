@@ -34,22 +34,11 @@ class Header extends React.Component<any, any>{
     });
   }
 
-  componentDidMount(){
-    // HTMLElement 
-    // this.scrollTop(document.querySelector("#header"));
-    // Axios.post('/api/portfolio', {sort: 'dateCreated'}).then((res: any) => {
-    //   this.setState({
-    //     portfolios: res.data
-    //   });
-    // });
-  }
-
   clearInput(e: any){
     this.setState({
       input: ''
     });
   }
-
   // toggleModal
   toggleModal() {
     this.setState((prevState: any) => ({
@@ -58,9 +47,7 @@ class Header extends React.Component<any, any>{
   }
 
   render() {
-    // let { users, projects } = this.state.results;
     let { user } = this.props;
-    // console.log(this.props.user);
     return (
       <header style={{height: "auto"}}>
         <Navbar id="header" expand="sm" color="white">

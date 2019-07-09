@@ -11,8 +11,11 @@ class Comment extends React.Component<any, any>{
   constructor(props: any){
     super(props);
     this.state = {
+      comments: [],
       comment: ''
     }
+    let socket = io(':3000');
+    socket.on('newComment', () => this.fetchComments());
   }
 
   handleInput = (e: React.FormEvent<HTMLInputElement>) => {
@@ -33,17 +36,30 @@ class Comment extends React.Component<any, any>{
       this.setState({comment: ''});
     }
   }
+
+  componentDidMount(){
+    this.fetchComments();
+  }
+  // fetch comments
+  async fetchComments(){
+    let { portfolioId } = this.props;
+    let { data }: AxiosResponse = await Axios.get(`/api/comments/${portfolioId}`)
+    this.setState({ comments: data });
+  }
+
   render() {
-    let { comment } = this.state;
+    let { comment, comments } = this.state;
     return (
       <div>
         <h5>Comments</h5>
         <Form onSubmit={this.submit}>
           <FormGroup>
             <Input type="text" name="comment" autoComplete="off" value={comment} onChange={this.handleInput} placeholder="Add a comment"/>
-            <CommentList portfolioId={this.props.portfolioId}></CommentList>
           </FormGroup>
-        </Form>        
+        </Form>
+        { comments.map((commentArr: any, i: number) => 
+          <CommentList key={i} comment={commentArr}/>
+        ) }
       </div>
     );
   }

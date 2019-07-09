@@ -25,13 +25,22 @@ class Comments{
   }
 
   @Put()
+  @Middleware(Validator.isAuthUser)
   modifyOne(request: Request, response: Response) {
-
+    let { commentId, content } = request.body;
+    Comment.findByIdAndUpdate(commentId, {content}, (error: any, comment: any) => {
+      if(error) return response.json({ error: 'Error saving to database' });
+      return response.json({ success: true });
+    });
   }
 
   @Delete(':id') 
   deleteOne(request: Request, response: Response) {
-
+    let { id } = request.params;
+    Comment.findByIdAndDelete(id, (error: any, comment: any) => {
+      if(error) return response.json({ error: 'Error saving to database' });
+      return response.json({ success: true });
+    });
   }
 }
 

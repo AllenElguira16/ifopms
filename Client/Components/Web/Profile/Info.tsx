@@ -23,14 +23,7 @@ class Info extends React.Component<any, any>{
     });
   }
 
-  followUser = (id: number) => {
-    Axios.post('/api/follow', {following: id}).then((res: any) => {
-      // console.log(res.data);
-      this.setState({
-        isFollowed: !this.state.isFollowed
-      });
-    });
-  }
+  
   totality = (id: number) => {
     Axios.post('/api/totalFollow', {id}).then(res => {
       this.setState({
@@ -52,14 +45,14 @@ class Info extends React.Component<any, any>{
     // this.totality(props.user.id);
   }
 
-  addToContacts = (id: number, e: any) => {
-    Axios.post('/api/addToContacts', {id: id}).then((res: AxiosResponse) => {
-      if(res.data.success){
-        this.setState({
-          alreadyInContacts: true
-        })
-      }
-    });
+  addToContacts = async (id: number, e: any) => {
+    let { data }: AxiosResponse = await Axios.post('/api/addToContacts', {id: id})
+    if(data.success) this.setState({ alreadyInContacts: true });
+  }
+
+  followUser = async (id: number) => {
+    let {data}: AxiosResponse = await Axios.post('/api/follow', {following: id})
+    if(data.success) this.setState({ isFollowed: !this.state.isFollowed });
   }
 
   render(){

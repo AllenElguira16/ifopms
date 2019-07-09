@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Container } from 'reactstrap';
 import MessageForm from './MessageForm';
 import Contacts from './Contacts';
-import Axios from 'axios';
+import Axios, { AxiosResponse } from 'axios';
 
 class Message extends React.Component<P, S>{
   state: S = {
@@ -30,23 +30,16 @@ class Message extends React.Component<P, S>{
     })
   }
 
-  searchUser = (e: React.FormEvent<HTMLInputElement>) => {
+  searchUser = async (e: React.FormEvent<HTMLInputElement>) => {
     let { currentTarget } = e;
     if (currentTarget.name === 'user') {
-      Axios.post('/api/users', { user: currentTarget.value }).then((res: any) => {
-        this.setState({
-          users: res.data,
-        });
-      });
-      if (currentTarget.value !== '') {
-        this.setState({
-          searchBox: true
-        });
-      } else {
-        this.setState({
-          searchBox: false
-        });
-      }
+      let { data }: AxiosResponse = await Axios.post('/api/users', { user: currentTarget.value })
+      this.setState({ users: data, searchBox: currentTarget.value !== '' ? true : false });
+      // if (currentTarget.value !== '') {
+      // this.setState({ searchBox: true });
+      // } else {
+        // this.setState({ searchBox: false });
+      // }
     }
   }
 
@@ -61,7 +54,7 @@ class Message extends React.Component<P, S>{
                 <div className="text-center col-sm-10">Messages</div>
                 <Button onClick={this.toggleMsg} color="white"><i className="material-icons col">note_add</i></Button>
               </header>
-              <Contacts onClick={this.toggleMsg} setAsReceiver={this.setAsReceiver}/>
+              {/* <Contacts onClick={this.toggleMsg} setAsReceiver={this.setAsReceiver}/> */}
             </>
           :
             <MessageForm 

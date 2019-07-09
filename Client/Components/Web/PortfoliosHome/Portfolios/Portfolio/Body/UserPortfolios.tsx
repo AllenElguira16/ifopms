@@ -15,7 +15,7 @@ class UserPortfolios extends React.Component<any, any>{
   }
 
   async fetchData(portfolio: any){
-    let { data }: AxiosResponse = await Axios.get(`/api/users/${portfolio.user.username}`)
+    let { data }: AxiosResponse = await Axios.get(`/api/users/portfolios/${portfolio.user.username}`)
     let { portfolios } = data;
     portfolios.map((portfolioObj: any, i: number) => {
       if(portfolioObj._id === portfolio._id) portfolios.splice(i, 1);

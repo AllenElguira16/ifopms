@@ -24,14 +24,14 @@ class UserNavItem extends React.Component<any, any>{
             <Link to="/portfolios" className="p-2">
               <i className="material-icons  mt-1">home</i>
             </Link>
-            {/* <UncontrolledDropdown nav inNavbar>
+            <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav>
                 <i className="material-icons  mt-1">message</i>
               </DropdownToggle>
               <DropdownMenu right style={{ zIndex: 10}}>
                 <Message user={user}/>
               </DropdownMenu>
-            </UncontrolledDropdown> */ }
+            </UncontrolledDropdown>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav>
                 <i className="material-icons  mt-1">notifications</i>

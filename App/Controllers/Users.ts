@@ -11,7 +11,7 @@ class Users{
     response.json(users);
   }
 
-  @Get(':username')
+  @Get('portfolios/:username')
   async getPortfoliosOfUser(request: Request, response: Response){
     let { username } = request.params;
     let user = await User.findOne({username});
