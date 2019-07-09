@@ -37,8 +37,9 @@ class Portfolios{
     let { title, categoryId, desc }: any = request.body;
     let { file }: any = request.files;
     let session = request.session as RequestSession;
+    let previewFile: string = Array.isArray(file) ? file[0].name: file.name;
     let portfolioObj = new Portfolio({ 
-      user: session.user, categoryId, title, description: desc, previewFile: file[0].name 
+      user: session.user, categoryId, title, description: desc, previewFile: previewFile 
     });
     portfolioObj.save((error: any, portfolio: any) => {
       if(error) return response.json({ error: 'All fields are required' });

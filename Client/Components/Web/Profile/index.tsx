@@ -43,31 +43,6 @@ class Profile extends React.Component<any, any>{
     });
   }
 
-  
-
-  // // Fetch data by the given username
-  // fetchUser(props: any){
-  //   let {user} = props;
-  //   Axios.get(`/api/user/${props.match.params.username}`).then((res: any) => {
-  //     let profile = res.data[0];
-  //     // setTimeout(() => {
-  //       this.setState({
-  //         user: res.data[0],
-  //         loading: false,
-  //         isSameUser: profile.id == user.id
-  //       })
-  //     // }, 1200);
-  //   });
-  // }
-
-  // fetchData(username: any, sort: string) {
-  //   Axios.post(`/api/portfolios/${username}`, {sort: sort}).then(res => {
-  //     this.setState({
-  //       portfolios: res.data
-  //     });
-  //   });
-  // }
-
   onChange(sort: string){
     // this.fetchData(this.state.user.username, sort);
   }

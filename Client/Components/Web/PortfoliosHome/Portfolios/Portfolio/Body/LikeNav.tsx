@@ -16,7 +16,7 @@ class LikeNav extends React.Component<any, any>{
 
   likePortfolio(e: any) {
     e.preventDefault();
-    Axios.post(`/api/like/${this.props.id}`);
+    Axios.post(`/api/portfolios/likes`, {});
   }
   
   fetchLikes(){

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import Axios from "axios";
+import Axios, { AxiosResponse } from "axios";
 
 import {
   Row
@@ -14,20 +14,13 @@ class UserPortfolios extends React.Component<any, any>{
     };
   }
 
-  fetchData(portfolio: any){
-    let count = 0;
-    let data;
-    Axios.post(`/api/portfolios/${portfolio.username}`, {sort: 'dateCreated'}).then((res: any) => {
-      res.data.map((portfolios: any) => {
-        if(portfolios.id === portfolio.id){
-            res.data.splice(count, 1);
-        }
-        count++;
-      });
-      this.setState({
-        portfolios: res.data
-      });
+  async fetchData(portfolio: any){
+    let { data }: AxiosResponse = await Axios.get(`/api/users/${portfolio.user.username}`)
+    let { portfolios } = data;
+    portfolios.map((portfolioObj: any, i: number) => {
+      if(portfolioObj._id === portfolio._id) portfolios.splice(i, 1);
     });
+    this.setState({portfolios});
   }
 
   componentWillReceiveProps(props: any){
@@ -42,17 +35,18 @@ class UserPortfolios extends React.Component<any, any>{
   }
 
   render(){
-    let portfolio = this.props.portfolio;
+    let { portfolio } = this.props;
+    let { portfolios } = this.state;
     return (
-      this.state.portfolios.length !== 0 &&
+      portfolios.length !== 0 &&
       <aside>
         <header>More from <Link to={`/user/${portfolio.username}`}>{portfolio.username}</Link></header>
         <Row>
-        {this.state.portfolios.map((portfolios: any) =>
-          <div key={portfolios.id} className="col-sm-6">
-            <Link to={`/portfolio/${portfolios.id}`}>
-              <img src={`/uploads/preview/${portfolios.userId}/${portfolios.title}/${portfolios.preview}`} alt="" className="img-fluid"/>
-            </Link>
+        {portfolios.map((portfolios: any) =>
+          <div key={portfolios._id} className="col-sm-6">
+            {/* <Link to={`/portfolio/${portfolios.id}`}> */}
+            <img src={`/uploads/portfolios/${portfolios._id}/${portfolios.previewFile}`} alt="" className="img-fluid"/>
+            {/* </Link> */}
           </div>
         )}
         </Row>

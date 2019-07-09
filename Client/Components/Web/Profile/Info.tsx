@@ -39,17 +39,17 @@ class Info extends React.Component<any, any>{
     });
   }
   componentWillReceiveProps(props: any){
-    Axios.post('/api/checkIfFollowed', {id: props.user.id}).then(res => {
-      this.setState({
-        isFollowed: res.data
-      })
-    });
-    Axios.get(`/api/checkIfAlreadyInContacts/${props.user.id}`).then(res => {
-      this.setState({
-        alreadyInContacts: res.data
-      })
-    });
-    this.totality(props.user.id);
+    // Axios.post('/api/checkIfFollowed', {id: props.user.id}).then(res => {
+    //   this.setState({
+    //     isFollowed: res.data
+    //   })
+    // });
+    // Axios.get(`/api/checkIfAlreadyInContacts/${props.user.id}`).then(res => {
+    //   this.setState({
+    //     alreadyInContacts: res.data
+    //   })
+    // });
+    // this.totality(props.user.id);
   }
 
   addToContacts = (id: number, e: any) => {
@@ -68,11 +68,11 @@ class Info extends React.Component<any, any>{
     return (
       <Container>
         <Row>
-          <Col sm="4">
+          <Col sm="3">
             <img src={`/uploads/profiles/${user._id}/${user.profilePic}`} alt="profile picture" className="rounded-circle" style={{height: 200, width: 200}}/>
           </Col>
-          <Col sm="8">
-            <h1 className="display-2">{user.firstname} {user.lastname}</h1>
+          <Col sm="9">
+            <h1 className="mt-4">{user.firstname} {user.lastname}</h1>
             <div>
               <span>{follow.follower} Followers <strong>&#8226;</strong> {follow.following} Following</span>
             </div>
