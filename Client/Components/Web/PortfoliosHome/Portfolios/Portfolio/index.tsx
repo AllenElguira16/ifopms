@@ -1,13 +1,6 @@
 import * as React from 'react';
 import Axios, { AxiosResponse } from 'axios';
-import UserPortfolios from "./Body/UserPortfolios";
-import Comment from "./Body/Comment";
-import { Link } from 'react-router-dom';
-import { 
-  Col, Container, Card, CardImg, CardBody, Row, CardHeader, Modal, ModalHeader, ModalBody, Button, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
-} from 'reactstrap';
-import LikeNav from "./Body/LikeNav";
-import Content from './Body/Content';
+import { Container, Modal } from 'reactstrap';
 import Header from './Header';
 import Body from './Body';
 
@@ -41,6 +34,15 @@ class Portfolio extends React.PureComponent<any, any>{
     if(currentId !== null){
       this.fetchData(currentId);
     }
+  }
+
+
+  toggleModal(e: any){
+    e.preventDefault();
+    let {modal} = this.state;
+    this.setState({
+      modal: !modal
+    })
   }
 
   render(){

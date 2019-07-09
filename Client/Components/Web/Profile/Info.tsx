@@ -23,7 +23,7 @@ class Info extends React.Component<any, any>{
     });
   }
 
-  followUser(id: number){
+  followUser = (id: number) => {
     Axios.post('/api/follow', {following: id}).then((res: any) => {
       // console.log(res.data);
       this.setState({
@@ -31,7 +31,7 @@ class Info extends React.Component<any, any>{
       });
     });
   }
-  totality(id: number){
+  totality = (id: number) => {
     Axios.post('/api/totalFollow', {id}).then(res => {
       this.setState({
         follow: res.data
@@ -51,7 +51,8 @@ class Info extends React.Component<any, any>{
     });
     this.totality(props.user.id);
   }
-  addToContacts(id: number, e: any){
+
+  addToContacts = (id: number, e: any) => {
     Axios.post('/api/addToContacts', {id: id}).then((res: AxiosResponse) => {
       if(res.data.success){
         this.setState({
@@ -60,22 +61,23 @@ class Info extends React.Component<any, any>{
       }
     });
   }
+
   render(){
     let { isSameUser, user } = this.props;
     let { isFollowed, follow, alreadyInContacts } = this.state;
     return (
       <Container>
-        <div className="d-flex justify-content-between">
-          <div>
+        <Row>
+          <Col sm="4">
+            <img src={`/uploads/profiles/${user._id}/${user.profilePic}`} alt="profile picture" className="rounded-circle" style={{height: 200, width: 200}}/>
+          </Col>
+          <Col sm="8">
             <h1 className="display-2">{user.firstname} {user.lastname}</h1>
             <div>
               <span>{follow.follower} Followers <strong>&#8226;</strong> {follow.following} Following</span>
             </div>
-          </div>
-          <div>
-            <img src={`/uploads/profiles/${user.id}/${user.file}`} alt="profile picture" className="rounded-circle" style={{height: 200, width: 200}}/>
-          </div>
-        </div>
+          </Col>
+        </Row>
         <div className="d-flex">
           {/* <div> */}
             {isSameUser && 

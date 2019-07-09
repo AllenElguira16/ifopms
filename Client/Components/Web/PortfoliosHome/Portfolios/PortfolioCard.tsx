@@ -13,7 +13,7 @@ class Portfolio extends React.Component<any, any>{
   }
 
   render(){
-    let { portfolio } = this.props;
+    let { portfolio, hideInfo } = this.props;
     return (
       <Col sm={3} className="justify-content-around text-decoration-none">
         <a href="#" onClick={ (e: any) => this.onClick(portfolio._id, e) }>
@@ -24,10 +24,12 @@ class Portfolio extends React.Component<any, any>{
             </CardBody>
           </Card>
         </a>
-        <div className="py-2 d-flex align-items-center">
-          <img src={`/uploads/profiles/${portfolio.user._id}/${portfolio.user.profilePic}`} className="rounded-circle img-fluid" style={{ height: 30, width: 30 }} />
-          <Link className="px-2" to={`/user/${portfolio.user.username}`}>@{portfolio.user.username}</Link>
-        </div>
+        {hideInfo !== true && 
+          <div className="py-2 d-flex align-items-center">
+            <img src={`/uploads/profiles/${portfolio.user._id}/${portfolio.user.profilePic}`} className="rounded-circle img-fluid" style={{ height: 30, width: 30 }} />
+            <Link className="px-2" to={`/user/${portfolio.user.username}`}>@{portfolio.user.username}</Link>
+          </div>
+        }
       </Col>
     );
   }

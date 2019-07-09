@@ -43,7 +43,7 @@ class Portfolios{
     portfolioObj.save((error: any, portfolio: any) => {
       if(error) return response.json({ error: 'All fields are required' });
       file.forEach((img: any) => {
-        let pathString: string =  path.join(__dirname, `../public/uploads/portfolios/${portfolio._id}/${img.name}`);
+        let pathString: string =  path.join(__dirname, `../../public/uploads/portfolios/${portfolio._id}/${img.name}`);
         img.mv(pathString, (error: object) => {
           if(error) return response.json({error: 'All fields are required'});
         });

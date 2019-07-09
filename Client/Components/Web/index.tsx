@@ -8,7 +8,7 @@ import Header from "./Components/Header"
 // import PageNotFound from "./Components/PageNotFound";
 import Register from "./Components/Forms/Register";
 // import Login from "./Components/Forms/Login";
-// import Profile from "./Components/Profile";
+import Profile from "./Profile";
 // import Portfolio from "./Components/Portfolio";
 // import Freelancer from "./Components/Freelancer";
 // import Messages from "./Components/Messages";
@@ -55,10 +55,9 @@ class Web extends React.Component<any, any>{
             <Route exact path="/portfolios/:categoryId" render={(props) => 
               <PortfoliosHome {...props} user={user}/>
             }/>
-            {/* <Route exact path="/portfolios/:categoryId" component={PortfoliosHome}/> */}
-            {/* <Route exact path="/user/:username" render={(props) => 
+            <Route exact path="/user/:username" render={(props) => 
               <Profile {...props} user={user}/>
-            } /> */}
+            } />
             {/* <Route path="/freelancer/dashboard" render={(props: any) => <Freelancer {...props} user={this.state.user}/>}/> */}
             {/* <Route exact path="/edit-profile" render={(props) => 
               <EditProfile {...props} user={this.state.user}/>
