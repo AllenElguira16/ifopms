@@ -48,7 +48,8 @@ class Server extends OvernightServer{
 
   public start(port: number) {
     mongoose.connect('mongodb+srv://user:user@clustersofstars-renyu.mongodb.net/ifopms?retryWrites=true&w=majority', {
-      useNewUrlParser: true
+      useNewUrlParser: true,
+      useFindAndModify: false
     }).then(() => console.log('MongoDB Connected Successfully')).catch((err) => console.error(err));
     this.app.listen(port, () => console.log('Server started on port ' + port));
   }

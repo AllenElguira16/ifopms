@@ -24,6 +24,17 @@ class Portfolios{
     });
   }
 
+  @Get('likes/:id')
+  async getData(request: Request, response: Response){
+    let { id } = request.params;
+    let portfolio: any = await Portfolio.findById(id).exec();
+    let iLiked = portfolio.likes.map((userId) => {
+      return request.session.user._id === userId;
+    })
+    // console.log(iLiked);
+    response.json({iLiked: iLiked[0], likeCount: portfolio.likes.length});
+  }
+
   @Get(':id')
   async get(request: Request, response: Response) {
     let { id } = request.params;
@@ -51,6 +62,28 @@ class Portfolios{
       });
       return response.json({ success: 'Portfolio successfully created' });
     });
+  }
+
+  @Put('likes')
+  async portfolioLiked(request: Request, response: Response){
+    let { portfolioId } = request.body;
+    let { user } = request.session;
+    let portfolio: any = await Portfolio.findById(portfolioId).exec();
+    let iLiked = portfolio.likes.map((userId) => {
+      return request.session.user._id === userId;
+    })
+    console.log(iLiked);
+    if(iLiked.includes(true)){
+      Portfolio.findByIdAndUpdate(portfolioId, {$pull: {likes: user._id}}, (error: any) => {
+        if(error) return response.json({error});
+        return response.json({ success: 'Updated successfully' });
+      });
+    } else {
+      Portfolio.findByIdAndUpdate(portfolioId, {$push: {likes: user._id}}, (error: any) => {
+        if(error) return response.json({error});
+        return response.json({ success: 'Updated successfully' });
+      });
+    }
   }
 
   @Put(':id')

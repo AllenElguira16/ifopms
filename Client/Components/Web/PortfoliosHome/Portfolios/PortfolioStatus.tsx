@@ -15,7 +15,7 @@ class PortfolioStatus extends React.Component<any, any>{
         </span>
         <span className="d-flex align-items-center mx-1">
           <i className="material-icons">thumb_up</i>
-          <small className="m-1">{portfolio.likes}</small>
+          <small className="m-1">{portfolio.likes.length}</small>
         </span>
       </div>
     )

@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Col
 } from "reactstrap";
-import Axios from 'axios';
+import Axios, { AxiosResponse } from 'axios';
 import io from "socket.io-client";
 class LikeNav extends React.Component<any, any>{
   constructor(props: any){
@@ -12,51 +12,31 @@ class LikeNav extends React.Component<any, any>{
       iLiked: false,
       user: {}
     }
+    let socket: any = io(':3000');
+    socket.on('updateLike', () => {
+      this.fetchLikes();
+    });
   }
 
-  likePortfolio(e: any) {
+  async likePortfolio(e: any) {
     e.preventDefault();
-    Axios.post(`/api/portfolios/likes`, {});
+    let { data }: AxiosResponse = await Axios.put(`/api/portfolios/likes`, {portfolioId: this.props.id});
+    if(data.success) {
+      let socket = io(':3000');
+      socket.emit('updateLike');
+    }
   }
   
-  fetchLikes(){
-    Axios.get(`/api/portfolio/${this.props.id}/likes`).then((res: any) => {
-      if(res.data.length === 0){
-        this.setState({
-          iLiked: false,
-          likeCount: null
-        });
-      } else {
-        res.data.map((like: any) => {
-          this.setState({iLiked: like.userId === this.state.user.id ? true : false});
-        });
-        this.setState({likeCount: res.data.length})
-      }
-    });
-  }
-
-  fetchUser(){
-    Axios.get('/api/userDetails').then((res: any) => {
-      this.setState({user: res.data});
-    });
-  }
-
-  componentWillUpdate(){
-    // let socket: any = io('localhost:8000');
-    // socket.on('updateLike', () => {
-    //   this.fetchLikes();
-    // });
+  async fetchLikes(){
+    let { data } = await Axios.get(`/api/portfolios/likes/${this.props.id}`);
+    // console.log(data);
+    this.setState({...data});
   }
   
   componentDidMount(){
     // this.fetchUser();
-    // this.fetchLikes();
+    this.fetchLikes();
   }
-
-  // componentWillReceiveProps(){
-  //   this.fetchUser();
-  //   this.fetchLikes();
-  // }
 
   render(){
     return (
@@ -65,13 +45,11 @@ class LikeNav extends React.Component<any, any>{
           {this.state.likeCount !== null && <span>{this.state.likeCount} likes</span>}
         </div>
         <div className="border-bottom py-2 d-flex react">
-          <Col tag="a" href="#" sm={6} onClick={this.likePortfolio.bind(this)} 
+          <Col tag="a" href="#" sm={6} onClick={this.likePortfolio.bind(this)}
             className={(this.state.iLiked ? 'liked ' : '') + `justify-content-center d-flex align-items-center`}
-            // className="justify-content-center d-flex align-items-center"
           >
             <i className="material-icons">thumb_up</i>
             <span className="p-2">Like</span>
-            {/* <small className="mx-2">9</small> */}
           </Col>
           <Col tag="a" href="#" sm={6}
             onClick={this.props.toggleComment.bind(this)}
@@ -79,7 +57,6 @@ class LikeNav extends React.Component<any, any>{
           >
             <i className="material-icons">comment</i>
             <span className="p-2">Comment</span>
-            {/* <small className="mx-2">9</small> */}
           </Col>
         </div>
       </div>

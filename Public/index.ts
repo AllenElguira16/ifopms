@@ -10,7 +10,6 @@ io.on('connection', (socket) =>  {
     io.emit('newPortfolio');
   });
   socket.on('newComment', () => {
-    console.log('newComment');
     io.emit('newComment');
   });
   socket.on('updateLike', () => {

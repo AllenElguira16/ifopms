@@ -8,10 +8,13 @@ const PortfolioSchema = new Schema({
   title: {type: String, required: true},
   description: {type: String, required: true},
   previewFile: {type: String, required: true},
-  likes: {type: Number},
+  // likes: {type: Number},
   views: {type: Number},
   comments: {type: Number},
   dateCreated: {type: Date, default: Date.now()},
+  likes: [{
+    type: String
+  }]
 });
 
 export default model('Portfolio', PortfolioSchema);
