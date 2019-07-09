@@ -1,6 +1,7 @@
 import React from "react";
 import io from "socket.io-client";
 import Axios, { AxiosResponse } from "axios";
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 
 
 class CommentList extends React.Component<any, any>{
@@ -23,16 +24,29 @@ class CommentList extends React.Component<any, any>{
   async fetchComments(){
     let { portfolioId } = this.props;
     let { data }: AxiosResponse = await Axios.get(`/api/comments/${portfolioId}`)
-    this.setState({comments: data});
+    this.setState({ comments: data });
   }
 
   render(){
+    let { comments } = this.state;
     return (
-      this.state.comments.map((comment: any, i: number)=> 
-        <div key={i} className="border-bottom pt-2">
-          <h6>@{comment.user.username}</h6>
-          <p>{comment.content}</p>
-        </div>
+      comments.length && comments.map((comment: any, i: number) => 
+        <React.Fragment key={i}>
+          <div className="border-bottom pt-2">
+            <h6>@{comment.user.username}</h6>
+            <p>{comment.content}</p>
+          </div>
+          <UncontrolledDropdown>
+            <DropdownToggle caret/>
+            <DropdownMenu>
+              <DropdownItem header>Header</DropdownItem>
+              <DropdownItem disabled>Action</DropdownItem>
+              <DropdownItem>Another Action</DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem>Another Action</DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+        </React.Fragment>
       )
     );
   }

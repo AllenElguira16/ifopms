@@ -34,7 +34,7 @@ class Comment extends React.Component<any, any>{
     }
   }
   render() {
-    let { comment } = this.props;
+    let { comment } = this.state;
     return (
       <div>
         <h5>Comments</h5>

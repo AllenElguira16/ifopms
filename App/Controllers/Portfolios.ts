@@ -32,7 +32,7 @@ class Portfolios{
       return request.session.user._id === userId;
     })
     // console.log(iLiked);
-    response.json({iLiked: iLiked[0], likeCount: portfolio.likes.length});
+    response.json({iLiked: iLiked[0] || false, likeCount: portfolio.likes.length});
   }
 
   @Get(':id')
@@ -49,9 +49,7 @@ class Portfolios{
     let { file }: any = request.files;
     let session = request.session as RequestSession;
     let previewFile: string = Array.isArray(file) ? file[0].name: file.name;
-    let portfolioObj = new Portfolio({ 
-      user: session.user, categoryId, title, description: desc, previewFile: previewFile 
-    });
+    let portfolioObj = new Portfolio({ user: session.user, categoryId, title, description: desc, previewFile: previewFile });
     portfolioObj.save((error: any, portfolio: any) => {
       if(error) return response.json({ error: 'All fields are required' });
       file.forEach((img: any) => {
@@ -72,7 +70,6 @@ class Portfolios{
     let iLiked = portfolio.likes.map((userId) => {
       return request.session.user._id === userId;
     })
-    console.log(iLiked);
     if(iLiked.includes(true)){
       Portfolio.findByIdAndUpdate(portfolioId, {$pull: {likes: user._id}}, (error: any) => {
         if(error) return response.json({error});
