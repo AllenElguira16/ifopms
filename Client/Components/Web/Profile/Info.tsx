@@ -31,6 +31,7 @@ class Info extends React.Component<any, any>{
       });
     });
   }
+  
   componentWillReceiveProps(props: any){
     // Axios.post('/api/checkIfFollowed', {id: props.user.id}).then(res => {
     //   this.setState({
@@ -46,7 +47,7 @@ class Info extends React.Component<any, any>{
   }
 
   addToContacts = async (id: number, e: any) => {
-    let { data }: AxiosResponse = await Axios.post('/api/addToContacts', {id: id})
+    let { data }: AxiosResponse = await Axios.post('/api/contacts', {id});
     if(data.success) this.setState({ alreadyInContacts: true });
   }
 
@@ -94,7 +95,7 @@ class Info extends React.Component<any, any>{
               </DropdownMenu>
             </UncontrolledDropdown> */}
             {!isSameUser &&
-              <Button className={`btn-raised rounded-pill`} disabled={alreadyInContacts ? true : false} onClick={this.addToContacts.bind(this, user.id)}> Add to Contacts </Button>
+              <Button className={`btn-raised rounded-pill`} disabled={alreadyInContacts ? true : false} onClick={this.addToContacts.bind(this, user._id)}> Add to Contacts </Button>
             }
 
             {/* {!isSameUser && <Button onClick={this.followUser.bind(this, user.id)}>Follow</Button>} */}
